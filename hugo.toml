@@ -1,0 +1,21 @@
+baseURL = 'https://example.org/'
+languageCode = 'en-us'
+title = 'Falme Docs'
+theme = 'hugo-book'
+
+[params]
+    BookTheme = 'dark'
+    BookDateFormat = '2 Jan 2006'
+
+defaultContentLanguage = 'en'
+defaultContentLanguageInSubdir = false
+disableDefaultLanguageRedirect = false
+disableLanguages = []
+[languages]
+  [languages.en]
+    languageName = 'English'
+    weight = 10
+  [languages.pt-br]
+    languageName = 'Português'
+    weight = 20
+
