@@ -11,13 +11,13 @@ weight: 1
 ---
 # CTFChallenge - VulnBegin Flags
 
-Sometimes I find very interesting the puzzle of Capture the Flag (CTF), where I can use some of my time to dive into a problem that I have no idea of "How the heck am I going to solve this?". And then, after some hours, in bed, I get up saying "I know!!" and try my new idea, maybe it's right, maybe it's wrong, but it's very satisfying.
+Às vezes eu acho muito interessante as atividades de Capture the Flag (CTF), onde eu posso usar parte do meu tempo para mergulhar num problema que normalmente me pergunto "Como diabos eu vou resolver isso aqui?". E então, depois de algumas horas na cama, eu levanto dizendo "Já sei!" e tento minha nova ideia, às vezes funciona, às vezes não, mas de qualquer forma é bem satisfatório.
 
-This one is about the CTFChallenge Website, more specific the Vuln Begin Challenge, with 9 Flags to be found. 
+Esse aqui é sobre os desafios do site CTFChallenge, pra ser mais específico, o desafio VulnBegin Challenge, com 9 Flags pra serem encontradas.
 
-In my case, the website will be relative from time to time (every time a new instance of the CTFchallenge), so, for this document I'll refer to the URL as "mymachine.vulnbegin.co.uk/".
+No meu caso, o site vai ser relativo de tempos em tempos (toda vez é uma instancia nova do CTFchallenge), então, para esse documento, eu vou me referir a URL do desafio como "mymachine.vulnbegin.co.uk/".
 
-So, Here's my journey to find all the flags:
+Sem mais delongas, aqui está minha jornada para encontrar todas as flags.
 
 ---
 
@@ -25,18 +25,18 @@ So, Here's my journey to find all the flags:
 
 ![Image description](/images/ctfchallenge-vulnbegin-flags/1.jpg)
 
-As the website says, "There's not much here!", no effective button, no form, no flags inside the Inspect element, So I need to do alternative ways to find the flags.
+Como está descrito no site, "Não tem muita coisa aqui" (tradução livre), nenhum botão pra clicar, nenhum formulário, sem flags dentro do Inspecionar elemento, então precisarei de meios alternativos pra achar a flag.
 
-Usually I start looking for robots.txt, which maybe have some files or folders paths, usually used to filter these folders to not allow to be found from robots (like the Google search) and keep it secret.
+Normalmente eu começo olhando pelo robots.txt, que pode ter alguns endereços de arquivos e pastas, normalmente usado pra filtrar esses endereços para que não possa ser encontrado por automações (como a busca do Google) e manter esses endereços em segredo.
 
-So I looked in mymachine.vulnbegin.co.uk/robots.txt to see if it has some hidden file/path
+Então, eu dei uma olhada no endereço mymachine.vulnbegin.co.uk/robots.txt pra ver se encontro algum endereço escondido.
 
 ```
 User-agent: *
 Disallow: /secret_d1rect0y/
 ```
 
-So, with that info, there's a disallowed folder called /secret_d1rect0y/ . I go to the address and I have found the first flag:
+Com essa informação eu encontro uma pasta marcada como "Disallow" chamada /secret_d1rect0y/ . Indo nesse endereço eu encontro a primeira flag.
 
 {{% details title="Answer:Flag 1" open=false %}}
 ```
@@ -48,20 +48,20 @@ So, with that info, there's a disallowed folder called /secret_d1rect0y/ . I go 
 
 ## Flag 2
 
-This flag was kinda problematic, I get the idea, but I will address the problem soon.
+Essa flag foi meio problemática, eu entendi a ideia, mas logo eu explico minha dificuldade.
 
-This one need to find a subdomain in the mymachine.vulnbegin.co.uk, but the subdomain is not easy to be accessed from bruteforce or wordlists. 
-For that we need to go to the `crt.sh` to search the Certificates from the `vulnbegin.co.uk`;
+Dessa vez eu precisava achar um subdomínio do mymachine.vulnbegin.co.uk, mas o subdomínio não é fácil de acessar por bruteforce ou wordlists. 
+Pra isso precisamos ir até o site `crt.sh` e procurar por certificados do `vulnbegin.co.uk`;
 
 ![Image description](/images/ctfchallenge-vulnbegin-flags/2.jpg)
 
-This image show a problem, that the address in the input is `http://vulnbegin.co.uk/`, but with the `http://` or `/` at the end will not find the certificates that I need, and I wasted a lot of time in this simple string problem.
+Essa imagem mostra um problema, que o endereço no campo mostrado é `http://vulnbegin.co.uk/`, mas colocando o `http://` ou `/` no final do endereço, ele não vai encontrar os certificados que eu preciso, e eu gastei muito tempo com esse simples problema de string.
 
-after changing it to only `vulnbegin.co.uk` I got the correct results with the subdomain that I was looking for:
+Depois de mudar o valor pra só `vulnbegin.co.uk`, eu tive os resultados corretos com o subdomínio que eu estava procurando:
 
 ![Image description](/images/ctfchallenge-vulnbegin-flags/3.jpg)
 
-With that I found the `v64hss83` subdomain, and accessing the page `v64hss83.mymachine.vulnbegin.co.uk` we access the Flag:
+Com isso eu encontrei o subdomínio `v64hss83`, e acessando a página `v64hss83.mymachine.vulnbegin.co.uk` nós conseguimos acesso à flag:
 
 {{% details title="Answer:Flag 2" open=false %}}
 ```
@@ -73,7 +73,7 @@ With that I found the `v64hss83` subdomain, and accessing the page `v64hss83.mym
 
 ## Flag 3
 
-Finding the subdomains of mymachine.vulnbegin.co.uk/, can be useful, and it's recommended in the useful tools page the FFuF to enumerate the subdomains, for that, I used the command
+Encontrar os subdomínios de mymachine.vulnbegin.co.uk/ pode ser bem útil, e é recomendado usar ferramentas como FFuF pra enumerar os subdomínios, para isso, eu usei o comando
 
 ```bash
 ffuf \
@@ -81,16 +81,16 @@ ffuf \
 -u http://FUZZ.mymachine.vulnbegin.co.uk
 ```
 
-Where:
-- `ffuf` calls the application 
-- `-w subdomains.txt` use a wordlist to scan 
-- `-u http://FUZZ.mymachine.vulnbegin.co.uk` define the address to enumerate, where FUZZ word is the placeholder to test possible correct values 
+Onde:
+- `ffuf` roda o programa 
+- `-w subdomains.txt` usa uma wordlist pra escanear 
+- `-u http://FUZZ.mymachine.vulnbegin.co.uk` define um endereço pra enumerar, onde FUZZ é a palavra que vai ser substituída e testar por possíveis valores encontrados.
 
-With that, it returns with a possible subdomain called http://server.mymachine.vulnbegin.co.uk
+Com esse comando, ele retornou um subdomínio possível chamado http://server.mymachine.vulnbegin.co.uk
 
 ![Image description](/images/ctfchallenge-vulnbegin-flags/4.jpg)
 
-Checking the page, we find the flag:
+Checando o endereço, nós encontramos a flag:
 
 {{% details title="Answer:Flag 3" open=false %}}
 ```
@@ -102,7 +102,7 @@ Checking the page, we find the flag:
 
 ## Flag 4
 
-The CTFChallenge Useful tools recommends the use of DNSRecon to check information about the mymachine.vulnbegin.co.uk/ DNS. So I run the 
+A página de Feramentas Úteis do CTFChallenge recomenda o uso de DNSRecon para verificar informações sobre o DNS de mymachine.vulnbegin.co.uk/ . Então eu rodei o comando 
 ```bash
 dnsrecon \
 -d mymachine.vulnbegin.co.uk \
@@ -111,15 +111,15 @@ dnsrecon \
 --lifetime 5.0
 ```
 
-Where:
-- `dnsrecon` calls the application
-- `-d mymachine.vulnbegin.co.uk` set the domain to check
-- `-D ./subdomains.txt` uses the wordlist subdomains from the Useful tools page and bruteforce for information
-- `-t std` call for standard scan
-- `--xml dnsrecon.xml` export results to an XML called dnsrecon.xml
-- `--lifetime 5.0` keeps the lifetime of scan to 5.0 seconds
+Onde:
+- `dnsrecon` roda o programa
+- `-d mymachine.vulnbegin.co.uk` define o domínio pra verificar
+- `-D ./subdomains.txt`  usa uma wordlist de subdomínios da página Ferramentas Úteis pra procurar por informações
+- `-t std` chama um escaneamento padrão
+- `--xml dnsrecon.xml` exporta os resultados para um arquivo XML chamado dnsrecon.xml 
+- `--lifetime 5.0` mantém ativo o escanemento por até 5.0 segundos
 
-With the scan, it reveals new information about the DNS and with that, the Flag
+Com o escaneamento, uma nova informação sobre o DNS é revelado e com ela, a flag
 
 ![Image description](/images/ctfchallenge-vulnbegin-flags/5.png)
 
@@ -133,19 +133,20 @@ With the scan, it reveals new information about the DNS and with that, the Flag
 
 ## Flag 5
 
-After Calling the FFuF to find some hidden pages inside the mymachine.vulnbegin.co.uk/* I have found a page called cpadmin:
+Depois de rodar FFuF pra achar algumas páginas escondidas no endereço mymachine.vulnbegin.co.uk/* eu encontrei uma página chamada cpadmin:
 
 ![Image description](/images/ctfchallenge-vulnbegin-flags/6.jpg)
 
-Checking this page, we can find a login page:
+Dando uma olhada na página, nós encontramos um formulário de login:
 
 ![Image description](/images/ctfchallenge-vulnbegin-flags/7.png)
 
-So the first thing to do is to do the basic login test: Put admin/admin in login and password. My surprise is that the result tells me that is an invalid password, but not login, so there's an admin user, I just need to find the correct password:
+Então a primeira coisa a se fazer é o teste mais básico da tela de login: colocar admin/admin no usuário e senha. Pra minha surpresa o resultado me diz que a senha está incorreta, mas não o usuário, ou seja, existe um usuário chamado admin, eu só preciso encontrar a senha correta.
 
 ![Image description](/images/ctfchallenge-vulnbegin-flags/8.png)
 
-For that I'll use Hydra to brute force the password, the command 
+Pra isso eu vou usar Hydra pra adivinhar a senha por força bruta. O comando 
+
 ```bash
 hydra \
 -l admin \
@@ -153,23 +154,23 @@ hydra \
 mymachine.vulnbegin.co.uk \
 http-form-post "/cpadmin/login:username=^USER^&password=^PASS^:Password is invalid" -V
 ```
-will do the work.
+vai resolver isso.
 
-Where:
-- `hydra` calls the program for brute force
-- `-l admin` set the login fixed as the word 'admin'
-- `-P ~/wordlists/passwords.txt` calls a password wordlist to test
-- `http-form-post` is the method-form for hydra to attack
-- `/cpadmin/login:` is the path to the login page address
-- `username=^USER^&password=^PASS^` is the information body to send to login form requisition, where ^USER^ will be replaced by the user value and ^PASS^ will be replaced by the password value
-- `Password is invalid` is the identifier in page to check if the login was successful or not, in this case we are only checking for the password validation, as we know the login value
-- `-V` verbose flag, so we can see all the hydra attempts
+Onde:
+- `hydra` roda o programa para força bruta
+- `-l admin` define o usuário para a string 'admin'
+- `-P ~/wordlists/passwords.txt` chama uma wordlist de senhas para testar
+- `http-form-post` é o method-form para Hydra atacar
+- `/cpadmin/login:` é o caminho para a página de login
+- `username=^USER^&password=^PASS^` é a informação sendo enviado para a requisição do login, onde ^USER^ vai ser substituído pelo valor do usuário e ^PASS^ será substituído pelo valor da senha
+- `Password is invalid` é o identificador na página que verifica se o login teve sucesso ou não, nesse caso nós só estamos checando pela validação da senha, pois já sabemos o usuário
+- `-V` verbose flag, assim podemos ver todas as tentativas da aplicação Hydra
 
-After some tries, we found our secret password for login:
+Depois de algumas tentativas, nós encontramos a senha do admin:
 
 ![Image description](/images/ctfchallenge-vulnbegin-flags/9.jpg)
 
-after inputting the correct password, we will be presented with the Flag:
+Após colocar a senha correta, somos apresentados com a flag:
 
 ![Image description](/images/ctfchallenge-vulnbegin-flags/10.jpg)
 
@@ -183,8 +184,8 @@ after inputting the correct password, we will be presented with the Flag:
 
 ## Flag 6
 
-After making a login as Admin in the cplogin page, it says that a configuration file was available, so I will use a wordlist to find new content with the session cookie from login. 
-To do that I'll use FFuF to Fuzz the content of the page with a Cookie Header:
+Depois de fazer login como Admin na página cplogin, ela diz que o arquivo de configuration estava disponível, então vou usar uma wordlist pra encontrar novos conteúdos usando os cookies da sessão pelo login.
+Pra isso utilizaremos FFuF pra achar conteúdos com Cookies no Header:
 
 ```bash
 ffuf \
@@ -193,21 +194,21 @@ ffuf \
 -H "Cookie: token=2eff535bd75e77b6c70ba1e4dcb2873"
 ```
 
-Where:
-- `ffuf` calls the program
-- `-w ~/wordlists/content.txt` uses a wordlist called content
-- `http://mymachine.vulnbegin.co.uk/cpadmin/FUZZ` is where I want to find new content and FUZZ is the string to be tested
-- `-H "Cookie: token=2eff535bd75e77b6c70ba1e4dcb2873"` is the Cookie session to make the page think that I am logged in (actually the session cookie IS the thing that checks if I am logged in)
+Onde:
+- `ffuf` roda o programa
+- `-w ~/wordlists/content.txt` usa uma wordlist chamada content.txt
+- `http://mymachine.vulnbegin.co.uk/cpadmin/FUZZ` é o endereço onde quero encontrar novos conteúdos e a palavra FUZZ é a string a ser testada
+- `-H "Cookie: token=2eff535bd75e77b6c70ba1e4dcb2873"` é o Cookie da sessão que queremos fazer com que a página acredite que estamos autenticados (na verdade esse cookie É o que verifica se estou ou não autenticado)
 
-After making through all the wordlist, we found some pages:
+Após correr por toda a wordlist, encontramos algumas páginas:
 
 ![Image description](/images/ctfchallenge-vulnbegin-flags/11.jpg)
 
-Let's check the `env` page:
+Vamos checar a página `env` :
 
 ![Image description](/images/ctfchallenge-vulnbegin-flags/12.png)
 
-With that we found the Flag and some hint for the next flag
+Com isso nós encontramos a flag e umas dicas para a próxima flag
 
 {{% details title="Answer:Flag 6" open=false %}}
 ```
@@ -219,13 +220,14 @@ With that we found the Flag and some hint for the next flag
 
 ## Flag 7
 
-The address `server.mymachine.vulnbegin.co.uk` has returned "Not Authenticated" from some previous flags, maybe with this new Header parameter `"X-Token: 492E64385D3779BC5F040E2B19D67742"` we can be authenticated in the server subdomain. 
-So using the command 
+O endereço `server.mymachine.vulnbegin.co.uk` retorna como "Não Autenticado" pelo login das ultimas flags, o motivo pode estar nesse novo parâmetro do Header `"X-Token: 492E64385D3779BC5F040E2B19D67742"`, talvez com ele poderemos nos autenticar no subdomínio `server`.
+
+Então usando o comando 
 ```bash
 curl http://server.mymachine.vulnbegin.co.uk/ \
 -H "X-Token: 492E64385D3779BC5F040E2B19D67742"
 ```
-and the new X-Token in the Header we can be Authenticated, and with that a new flag appears:
+e com o novo X-Token no Header, nós estamos autenticados. A nova flag aparece:
 
 ![Image description](/images/ctfchallenge-vulnbegin-flags/13.jpg)
 
@@ -239,26 +241,27 @@ and the new X-Token in the Header we can be Authenticated, and with that a new f
 
 ## Flag 8
 
-With the X-Token auth value, we can re-scan for new addresses, but now as the Host being the server. 
-So calling the FFuF again to find content in the page but with 2 values on header, one being the X-Token to authenticate the access `-H "X-Token: 492E64385D3779BC5F040E2B19D67742"` and the Host as server `-H "Host: server.mymachine.vulnbegin.co.uk"`. 
+Com o valor de autenticação do X-Token, nós podemos re-escanear por novos endereços, só que agora pelo subdomínio do server.
+Então chamando o FFuF de novo pra achar novos conteúdos, só que agora com 2 valores no header, um sendo o X-Token pra autenticar o acesso `-H "X-Token: 492E64385D3779BC5F040E2B19D67742"` e o Host do servidor `-H "Host: server.mymachine.vulnbegin.co.uk"`.
+
 ```bash
 ffuf http://mymachine.vulnbegin.co.uk/user \
 -H "X-Token: 492E64385D3779BC5F040E2B19D67742" \
 -H "Host: server.mymachine.vulnbegin.co.uk"
 ```
-With these header values, we find a new access at /user/:
+Com esses valores no Header, nós encontramos um novo acesso em /user/:
 
 ![Image description](/images/ctfchallenge-vulnbegin-flags/14.jpg)
 
-Accessing the /user/ page we find a JSON with the following information:
+Acessando a página /user/ nós encontramos um JSON com a seguinte informação:
 
 `{"id":27,"endpoint":"/user/27"}`
 
-And accessing the /user/27/ page we find another JSON with the following information:
+E acessando a página /user/27/ nós encontramos outro JSON com a seguinte informação:
 
 `{"id":27,"username":"vulnbegin_website","endpoint":"/user/27/info"}`
 
-And accessing the /user/27/info page we find another JSON with the Flag information.
+E acessando a página /user/27/info/ nós encontramos outro JSON com a flag
 
 {{% details title="Answer:Flag 8" open=false %}}
 ```
@@ -270,10 +273,10 @@ And accessing the /user/27/info page we find another JSON with the Flag informat
 
 ## Flag 9
 
-In the last Flag there was ID information in /user/27/info, that means that a user have the identifier in the Database as 27. That reveals that other users may be available for reading information.
-The idea is to loop through the users until we find something useful or ideally the Flag.
+Na última flag tinha uma ID em /user/27/info, o que significa que um usuário tem um identificador no banco de dados como 27. Isso revela que outros usuários podem estar disponível para ler suas informações.
+A ideia é fazer um loop pelos usuário até achar algo interessante ou a própria flag.
 
-For that I'll use a loop from bash to gather information with curl:
+Pra isso nós vamos usar um loop em bash/shell pra pegar essa informação pelo curl:
 
 ```bash
 for i in {0..5}; \
@@ -283,13 +286,13 @@ do curl http://mymachine.vulnbegin.co.uk/user/$i/info \
 done
 ```
 
-Where:
-- `for i in {0..5};` make it loop the next action 6 times (starts at zero, finishes at 5)
-- `do` defines what action to do (next command will loop)
-- `curl http://mymachine.vulnbegin.co.uk/user/$i/info -H "X-Token: 492E64385D3779BC5F040E2B19D67742" -H "Host: server.mymachine.vulnbegin.co.uk";` The command we saw last time, but now with $i in the place of the user ID, this will change to the loop number (from 0 to 5)
-- `done` identifier of finishing the loop command
+Onde:
+- `for i in {0..5};` faz um loop pelas próximas 6 vezes (começa em zero, termina em 5)
+- `do` define que ação fazer (próximo comando do loop)
+- `curl http://mymachine.vulnbegin.co.uk/user/$i/info -H "X-Token: 492E64385D3779BC5F040E2B19D67742" -H "Host: server.mymachine.vulnbegin.co.uk";` O comando que vimos da última vez, mas agora com $i no lugar do ID do usuário, esse número vai mudar de acordo com o valor do loop (de 0 a 5)
+- `done` identificador de fim do loop
 
-After looping 6 times, we have our flag at ID 5:
+Depois de fazer o loop 6 vezes, nós temos a flag na ID 5:
 
 ![Image description](/images/ctfchallenge-vulnbegin-flags/15.jpg)
 
@@ -301,12 +304,12 @@ After looping 6 times, we have our flag at ID 5:
 
 ---
 
-## Conclusion
+## Conclusão
 
-This was a journey, many of the solutions I've seen before, but the CTF that have a correct sequence to find a flag, and other flag, and another flag... It's kinda motivating to find the next one (I also found 2 flags on VulnLayers, the next free CTF, but I'll not finish it so soon). 
+Essa foi uma jornada, muitas das soluções eu já vi antes, mas o CTF tem uma correta sequência de qual concluir e como achar a próxima flag, e a próxima flag, e a próxima... É motivante querer achar a próxima (Eu também achei mais 2 flags no desafio VulnLayers, o próximo CTF gratuíto, mas não irei terminar tão cedo).
 
-The CTF Challenge gives me a feeling of Escape the room games, where I find the solution of a puzzle, but also gives me a hint to what should I look for next. 
+O CTFChallenge me dá um sentimento semelhante aos jogos Escape the Room, onde eu encontro uma solução de um problema, mas ao mesmo tempo me dá uma dica do que eu deveria olhar depois.
 
-But in the negative side, if I find the answer of a puzzle in a wrong order, it can be very confusing to finish the CTF/Escape the room as a whole. In the CTFChallenge case, I skipped the Flag 2, and found the result of Flag 3, 4 and 5, this makes the line of thought very hard to follow.
+Mas pelo lado negativo, se eu encontrar uma resposta do problema na ordem errada, vai ser bem confuso de terminar o CTF/Escape the room como um todo. No caso do CTFChallenge eu pulei a flag 2, e encontrei o resultado da flag 3, 4 e 5, sendo muito difícil de ter uma linha de raciocínio para seguir.
 
-As a lesson, I need to have more patience and make my steps very clear, one foot after another till I reach the end.
+Como um aprendizado, eu preciso ter mais paciência e fazer meu caminho ser bem claro, o passo de cada vez até eu chegar no fim.
