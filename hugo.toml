@@ -6,6 +6,8 @@ theme = 'hugo-book'
 [params]
     BookTheme = 'dark'
     BookDateFormat = '2 Jan 2006'
+[markup.goldmark.renderer]
+  unsafe = true
 
 defaultContentLanguage = 'en'
 defaultContentLanguageInSubdir = false
