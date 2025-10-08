@@ -1,6 +1,4 @@
 ---
 title: "CTFs"
+bookCollapseSection: true
 ---
-# CTFs
-
-## WIP

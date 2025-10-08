@@ -1,6 +1,4 @@
 ---
 title: "Desenvolvimento de Jogos"
+bookCollapseSection: true
 ---
-# Desenvolvimento de Jogos
-
-## WIP

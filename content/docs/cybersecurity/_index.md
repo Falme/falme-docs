@@ -1,6 +1,4 @@
 ---
 title: "Cybersecurity"
+bookCollapseSection: true
 ---
-# Cybersecurity
-
-## WIP

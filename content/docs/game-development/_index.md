@@ -1,6 +1,4 @@
 ---
 title: "Game Development"
+bookCollapseSection: true
 ---
-# Game Development
-
-## WIP

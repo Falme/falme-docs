@@ -1,6 +1,4 @@
 ---
 title: "PicoCTF"
+bookCollapseSection: true
 ---
-# PicoCTF
-
-## WIP
