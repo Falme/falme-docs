@@ -13,6 +13,112 @@ weight: 1
 
 I'm coming back to the [PicoCTF Playlist](https://play.picoctf.org/playlists/2) challenges, and finishing the Warmup list. So in this text we will go through the challenges and solving them.
 
+I'm starting to tackle the challenges of PicoCTF, a website/platform to test/challenge myself on Capture the Flag puzzles, learning the basics of cybersecurity and maybe make it useful for game development, web development and life in general.
+
+So the first ones are very basic, the objective is to learn along, and for that, I'll be starting with the Playlists.
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8pnii00akhsfz6t6my2h.png)
+
+As it says in the webpage : "Playlists are collections of challenges, sometimes with readings or games, that are curated to help students learn a particular topic."
+
+And I'll start with Low Level Binary Intro, that can be helpful with my current job (Game Development).
+
+The first one is actually a game and a sanity check called "Obedient Cat"
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9fylmbuj3wvymgohqlkt.png)
+
+Sanity Check is a simple test to check if everything is happening as expected on the basic level. In this case, I just need to download the flag in a file and read the content inside. There's a flag for this one.
+
+After the sanity check, we reach the main challenge of this post, called "Warmed Up". 
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0hw97p4xedw64e08zg3w.png)
+
+This challenge is really easy, just using the DuckDuckGo web search as "0x3D in decimal" should give us the answer. But I know that I'll need to use python in this playlist. So, I'll go further and create a Hexadecimal to Decimal converter in python.
+
+I currently have `Python 3.10.8` version. So let's begin.
+
+The idea is to make a Hex string and each char value multiply by 16.
+
+For example: 0xA9D = A*16*16 + 9*16 + D
+That's the same as = 10*(16^2) + 9*(16^1) + 13*(16^0) = 2717
+
+So first, I'll make a method to convert the single Hex char to a decimal number:
+
+```python
+#List/Dictionary of numbers above 9
+#To be called from a loop
+associationList = [
+            ['A', 10],
+            ['B', 11],
+            ['C', 12],
+            ['D', 13],
+            ['E', 14],
+            ['F', 15],
+        ]
+
+def ToDecimal(hexChar):
+    
+    #First try the string/char range of numbers
+    #If there's a match of the key, return value
+    for item in associationList:
+        if item[0] == hexChar.upper():
+            return item[1]
+
+    #Try to return a valid number, if not, return -1
+    try:
+        return int(hexChar)
+    except:
+        return 0
+```
+
+The Method ToDecimal(char) will make my value 'F' to be converted to 15, but also make my value '6' to be converted to 6 (as an integer)
+
+Now I need to create a method that get the Hex value inputted from the user and convert it to decimal values and sum them.
+
+```python
+import sys
+
+def HexToDec():
+    
+    #Total Sum after calculations
+    total = 0
+ 
+    #Try to parse the user input, if cannot, show error
+    try:
+        #Go through all input chars backwards
+        for x,char in enumerate(reversed(sys.argv[1])):
+            
+            #Multiply the respective position Hexadecimal
+            #To the decimal value
+            multiplier = ToDecimal(char) * pow(16,x)
+            
+            #Sum/Add to the final result
+            total += multiplier
+
+        print(total)
+    except:
+        print("Not valid arguments or missing argument")
+
+HexToDec()
+```
+
+With this code, I can pass the Hexadecimal value through the parameters calling something like : `python HexToDec.py 2e87` and it will return me 11911.
+
+But after making many things that does not solve the original problem, let's go back and solve it:
+
+I need to know the value of 0x3D in Decimal, and putting it in the python code it returns me...
+
+` > 61 `
+
+So I just need to append the 61 to the format of CTF Flag `picoCTF{61}` and:
+
+
+![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/piogpxcg2h84n2xdqckm.png)
+
+And that's it, a very super complicated solution to a simple problem.
+
+Here's the final [Python File](https://github.com/Falme-SideProjects/python-hex-to-dec/blob/main/HexToDec.py)
+
 ---
 
 ## ASCII Numbers
