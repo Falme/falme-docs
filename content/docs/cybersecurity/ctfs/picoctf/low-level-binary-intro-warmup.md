@@ -9,29 +9,41 @@ weight: 1
 # bookSearchExclude: false
 # bookHref: ''
 ---
-# PicoCTF: Low level Binary Intro - Warmup
+# PicoCTF: Low Level Binary Intro - Warmup
 
-I'm coming back to the [PicoCTF Playlist](https://play.picoctf.org/playlists/2) challenges, and finishing the Warmup list. So in this text we will go through the challenges and solving them.
+I'm starting to tackle the challenges of PicoCTF, a website to challenge myself on Capture the Flag puzzles (CTFs), learning the basics of cybersecurity and maybe make it useful for game development, web development and life in general.
 
-I'm starting to tackle the challenges of PicoCTF, a website/platform to test/challenge myself on Capture the Flag puzzles, learning the basics of cybersecurity and maybe make it useful for game development, web development and life in general.
+So the first ones are very basic, the idea is to make a step-by-step learning routine, and for that, I'll be starting at the Playlists page.
 
-So the first ones are very basic, the objective is to learn along, and for that, I'll be starting with the Playlists.
-
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/8pnii00akhsfz6t6my2h.png)
+![Image description](/images/low-level-binary-intro-warmup/1.jpg)
 
 As it says in the webpage : "Playlists are collections of challenges, sometimes with readings or games, that are curated to help students learn a particular topic."
 
-And I'll start with Low Level Binary Intro, that can be helpful with my current job (Game Development).
+So I'll start with <a href='https://play.picoctf.org/playlists/2' target='_blank'>"Low Level Binary Intro"</a>, that can be helpful with my current job (Game Development).
 
-The first one is actually a game and a sanity check called "Obedient Cat"
+The first section of the Low Level Binary Intro is called "Warmup", we will be covering it in this document.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/9fylmbuj3wvymgohqlkt.png)
+## Flag 1: Obedient Cat
+
+![Image description](/images/low-level-binary-intro-warmup/2.jpg)
+
+This one is just a sanity check for the other challenges.
 
 Sanity Check is a simple test to check if everything is happening as expected on the basic level. In this case, I just need to download the flag in a file and read the content inside. There's a flag for this one.
 
-After the sanity check, we reach the main challenge of this post, called "Warmed Up". 
+{{% details title="Answer:Flag 1" open=false %}}
+```
+picoCTF{s4n1ty_v3r1f13d_b5aeb3dd}
+```
+{{% /details %}}
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/0hw97p4xedw64e08zg3w.png)
+---
+
+## Flag 2: Warmed Up
+
+After the sanity check, we reach the first challenge of this post, called "Warmed Up". 
+
+![Image description](/images/low-level-binary-intro-warmup/3.jpg)
 
 This challenge is really easy, just using the DuckDuckGo web search as "0x3D in decimal" should give us the answer. But I know that I'll need to use python in this playlist. So, I'll go further and create a Hexadecimal to Decimal converter in python.
 
@@ -39,8 +51,8 @@ I currently have `Python 3.10.8` version. So let's begin.
 
 The idea is to make a Hex string and each char value multiply by 16.
 
-For example: 0xA9D = A*16*16 + 9*16 + D
-That's the same as = 10*(16^2) + 9*(16^1) + 13*(16^0) = 2717
+For example: 0xA9D = A\*16\*16 + 9\*16 + D  
+That's the same as = 10\*(16^2) + 9\*(16^1) + 13\*(16^0) = 2717
 
 So first, I'll make a method to convert the single Hex char to a decimal number:
 
@@ -71,7 +83,7 @@ def ToDecimal(hexChar):
         return 0
 ```
 
-The Method ToDecimal(char) will make my value 'F' to be converted to 15, but also make my value '6' to be converted to 6 (as an integer)
+The Method ToDecimal(char) will make my value 'F' to be converted to 15, but also make my value '6' (as a string) to be converted to 6 (as an integer)
 
 Now I need to create a method that get the Hex value inputted from the user and convert it to decimal values and sum them.
 
@@ -110,22 +122,27 @@ I need to know the value of 0x3D in Decimal, and putting it in the python code i
 
 ` > 61 `
 
-So I just need to append the 61 to the format of CTF Flag `picoCTF{61}` and:
+So I just need to append the 61 to the format of CTF Flag and it's solved:
 
-
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/piogpxcg2h84n2xdqckm.png)
+![Image description](/images/low-level-binary-intro-warmup/4.jpg)
 
 And that's it, a very super complicated solution to a simple problem.
 
 Here's the final [Python File](https://github.com/Falme-SideProjects/python-hex-to-dec/blob/main/HexToDec.py)
 
+{{% details title="Answer:Flag 2" open=false %}}
+```
+picoCTF{61}
+```
+{{% /details %}}
+
 ---
 
-## ASCII Numbers
+## Flag 3: ASCII Numbers
 
 For this challenge, I'll need to get a collection of Hexadecimal values and convert it to ASCII characters and reveal the flag. I could convert by hand, but I want to do a python script for that.
 
-First, we need to Trim the Hexadecimal values like "0x30 0x40" to be a list array of only simple hex values like [30,40]. That's the code for that:
+First, we need to Trim the Hexadecimal values like "0x30 0x40" to be a list array of only simple hex values like [30,40]. Here's the code for that:
 
 ```python
 
@@ -181,27 +198,29 @@ python3 HexToASCII.py "0x70 0x69 0x63 0x6f 0x43 0x54 0x46 0x7b 0x34 0x35 0x63 0x
 
 We get the flag:
 
-{% spoiler Answer:ASCII Numbers %}
+{{% details title="Answer:Flag 3" open=false %}}
+```
 picoCTF{45c11_n0_qu35710n5_1ll_t311_y3_n0_l135_445d4180}
-{% endspoiler %}
+```
+{{% /details %}}
 
 ---
 
-## Picker I
+## Flag 4: Picker I
 
 This is a random number generator service, this one have a NetCat call from the PicoCTF servers, with that it also provide us a source code (python script). 
 
-Accessing the netcat, provides me a possibility to roll a getRandomNumber(), but always return 4. It's really random? [We will never know.](https://xkcd.com/221/)
+Accessing the netcat, provides me a possibility to roll a getRandomNumber(), but always return 4. Is it really random? [We will never know.](https://xkcd.com/221/)
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/dl4he12s0ycqhaiivmde.png)
+![Image description](/images/low-level-binary-intro-warmup/5.jpg)
 
 Looking through the source file, we can check that the getRandomNumber() is useless, but it also has a method called "win()" which call a file called "flag.txt". Wait, we want that.
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/tii8sh56oj3vwrcjp3v9.png)
+![Image description](/images/low-level-binary-intro-warmup/6.png)
 
 calling this method instead getRandomNumber, we receive a bunch of hex values:
 
-![Image description](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/fb1d1ch6d98gltgmhn8y.png)
+![Image description](/images/low-level-binary-intro-warmup/7.jpg)
 
 Lucky us, we have a script specifically for that, so calling the command:
 
@@ -210,6 +229,8 @@ python3 HexToASCII.py "0x70 0x69 0x63 0x6f 0x43 0x54 0x46 0x7b 0x34 0x5f 0x64 0x
 ```
 We have a result, and the response is our flag:
 
-{% spoiler Answer:Picker I %}
+{{% details title="Answer:Flag 4" open=false %}}
+```
 picoCTF{4_d14m0nd_1n_7h3_r0ugh_6e04440d}
-{% endspoiler %}
+```
+{{% /details %}}
