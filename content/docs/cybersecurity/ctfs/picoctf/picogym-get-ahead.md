@@ -31,7 +31,7 @@ First I did a GET Request, but nothing useful came in the header response. Playi
 
 With only that change, the response headers have the final CTF flag :
 
-{{% details title="Resposta: Flag" open=false %}}
+{{% details title="Answer: Flag" open=false %}}
 ![Image description](/images/picogym-get-ahead/4.png)
 ```
 picoCTF{r3j3ct_th3_du4l1ty_70bc61c4}
