@@ -119,7 +119,7 @@ Com este código, posso passar o valor hexadecimal através dos parâmetros cham
 
 Mas depois de fazer muitas coisas que não resolvem o problema original, vamos voltar e resolvê-lo:
 
-Preciso saber o valor de 0x3D em decimal e, colocando-o no código python, ele retorna...
+Preciso saber o valor de 0x3D em decimal e, colocando no código python, ele retorna...
 
 ` > 61 `
 
@@ -141,65 +141,65 @@ picoCTF{61}
 
 ## Flag 3: ASCII Numbers
 
-For this challenge, I'll need to get a collection of Hexadecimal values and convert it to ASCII characters and reveal the flag. I could convert by hand, but I want to do a python script for that.
+Pra esse desafio, vou precisar coletar uma coleção de hexadecimais e converter em letras ASCII pra revelar a flag. Eu poderia converter na mão, mas eu quero fazer um script em python pra isso.
 
-First, we need to Trim the Hexadecimal values like "0x30 0x40" to be a list array of only simple hex values like [30,40]. Here's the code for that:
+Primeiro, nós precisamos recortar os valores hexadecimal do tipo "0x30 0x40" pra ser uma lista de array só com os valores hexadecimal simples como [30, 40]. Aqui está o código demonstrando:
 
 ```python
 
 import sys
 
-# Text like "0x30 0x40 0x50" convert to array
+# Pega um texto como "0x30 0x40 0x50" e converte em array
 def TrimHexString(originalString):
 
-    #Split the values to an array
+    #Quebra os valores em um array
     hexValues = originalString.split()
 
-    # Check if need to trim the 0x from hex text
+    # Checa se precisa remover o 0x do texto hexadecimal
     for index,val in enumerate(hexValues):
-        # If does have 0x, remove it
+        # Se tiver um 0x, remover
         if val[:2] == "0x":
             hexValues[index] = val[2:]
 
-    #return final list array
+    #Retorna o valor final da lista em array
     return hexValues
 
 TrimHexString("0x10 0x20 0x30")
 
 ```
 
-And then taking this list and concatenate to a whole string, like taking from [30,40,50] to "304050". Making possible to call the bytes.fromhex().decode("utf-8") so we can convert the hex to ASCII easily:
+E, em seguida, pegar essa lista e concatená-la em uma só string, por exemplo converter de [30,40,50] para “304050”. Tornando possível chamar bytes.fromhex().decode(“utf-8”) para que possamos converter o hexadecimal para ASCII facilmente:
 
 ```python
 
-# Join all hex arrays to a single string 
+# Junta todos os hexadecimais do array em uma só string
 def ConcatenateHexList(hexList):
     return "".join(hexList)
 
 ```
 
-And then call everything with the first argument from command line and show the results of conversion with decode("utf-8"):
+E então chamar tudo no primeiro argumento da função pela linha de comando vai mostrar o resultado da conversão usando decode("utf-8"):
 
 ```python
 
-# Get the first value from command line to trim and join
+# Pega o primeiro valor da linha de comando pra recortar e juntar os valores
 hexConcatenated = ConcatenateHexList(TrimHexString(sys.argv[1]))
 
-# decode the hex to ascii and show results
+# Decodifica o valor hexadecimal e mostra os resultados em ASCII
 result = bytes.fromhex(hexConcatenated).decode("utf-8")
 print(result)
 
 ```
 
-and calling the command:
+E ao chamar o comando:
 
 ```bash
 python3 HexToASCII.py "0x70 0x69 0x63 0x6f 0x43 0x54 0x46 0x7b 0x34 0x35 0x63 0x31 0x31 0x5f 0x6e 0x30 0x5f 0x71 0x75 0x33 0x35 0x37 0x31 0x30 0x6e 0x35 0x5f 0x31 0x6c 0x6c 0x5f 0x74 0x33 0x31 0x31 0x5f 0x79 0x33 0x5f 0x6e 0x30 0x5f 0x6c 0x31 0x33 0x35 0x5f 0x34 0x34 0x35 0x64 0x34 0x31 0x38 0x30 0x7d"
 ```
 
-We get the flag:
+Nós teremos a flag:
 
-{{% details title="Answer:Flag 3" open=false %}}
+{{% details title="Resposta: Flag 3" open=false %}}
 ```
 picoCTF{45c11_n0_qu35710n5_1ll_t311_y3_n0_l135_445d4180}
 ```
@@ -209,28 +209,29 @@ picoCTF{45c11_n0_qu35710n5_1ll_t311_y3_n0_l135_445d4180}
 
 ## Flag 4: Picker I
 
-This is a random number generator service, this one have a NetCat call from the PicoCTF servers, with that it also provide us a source code (python script). 
+Dessa vez temos um serviço que gera números aleatórios, esse tem uma chamada NetCat para os servidores do PicoCTF, que também providencia pra gente o código-fonte (script em python)
 
-Accessing the netcat, provides me a possibility to roll a getRandomNumber(), but always return 4. Is it really random? [We will never know.](https://xkcd.com/221/)
+Acessando o netcat, ele me providencia a possibilidade de chamar o getRandomNumber() pra retornar um número aleatório, mas sempre retorna 4. A função é realmente aleatória? [Nós nunca saberemos.](https://xkcd.com/221/)
 
 ![Image description](/images/low-level-binary-intro-warmup/5.jpg)
 
-Looking through the source file, we can check that the getRandomNumber() is useless, but it also has a method called "win()" which call a file called "flag.txt". Wait, we want that.
+Ao examinar o código-fonte, podemos ver que a função getRandomNumber() é inútil, mas que também existe um método chamado "win()" que chama um arquivo chamado "flag.txt". Espera, nós queremos isso.
 
 ![Image description](/images/low-level-binary-intro-warmup/6.png)
 
-calling this method instead getRandomNumber, we receive a bunch of hex values:
+Chamando essa função ao invés do getRandomNumber, nós recebemos um monte de valores hexadecimal:
 
 ![Image description](/images/low-level-binary-intro-warmup/7.jpg)
 
-Lucky us, we have a script specifically for that, so calling the command:
+Sorte nossa, temos um script especificamente para isso, então chamando o comando:
 
 ```bash
 python3 HexToASCII.py "0x70 0x69 0x63 0x6f 0x43 0x54 0x46 0x7b 0x34 0x5f 0x64 0x31 0x34 0x6d 0x30 0x6e 0x64 0x5f 0x31 0x6e 0x5f 0x37 0x68 0x33 0x5f 0x72 0x30 0x75 0x67 0x68 0x5f 0x36 0x65 0x30 0x34 0x34 0x34 0x30 0x64 0x7d"
 ```
-We have a result, and the response is our flag:
 
-{{% details title="Answer:Flag 4" open=false %}}
+Temos um resultado, e a resposta é a nossa flag:
+
+{{% details title="Resposta: Flag 4" open=false %}}
 ```
 picoCTF{4_d14m0nd_1n_7h3_r0ugh_6e04440d}
 ```
