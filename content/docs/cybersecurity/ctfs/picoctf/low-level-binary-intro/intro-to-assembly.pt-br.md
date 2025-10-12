@@ -1,5 +1,5 @@
 ---
-title: "Low Level Binary Intro: Intro to Assembly"
+title: "Intro to Assembly"
 weight: 4
 # bookFlatSection: false
 # bookToc: true

@@ -1,5 +1,5 @@
 ---
-title: "Low Level Binary Intro: Intro to Debuggers"
+title: "Intro to Debuggers"
 weight: 6
 # bookFlatSection: false
 # bookToc: true

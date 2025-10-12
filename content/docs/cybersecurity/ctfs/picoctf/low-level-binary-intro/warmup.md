@@ -1,5 +1,5 @@
 ---
-title: "Low Level Binary Intro: Warmup"
+title: "Warmup"
 weight: 3
 # bookFlatSection: false
 # bookToc: true
