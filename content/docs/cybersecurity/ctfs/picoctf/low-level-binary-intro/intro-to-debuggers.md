@@ -259,13 +259,13 @@ Where
  - M : is the Most Significant Byte
  - L : is the Least Significant Byte
 
-![Big Endian](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/213j4ywj4v2ywog92yxm.png)
+![Big Endian](/images/intro-to-debuggers/1.jpg)
 
 ### Little Endian
 
 Normally "inverted" the way we read the hexadecimal values.
 
-![Little Endian](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/o4lslhjanoamrau4wo4l.png)
+![Little Endian](/images/intro-to-debuggers/2.jpg)
 
 
 So the exercise asked for us to write down the flag as we read them, so, as Little endian is on the screen.
