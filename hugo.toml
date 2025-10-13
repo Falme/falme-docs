@@ -1,4 +1,4 @@
-baseURL = 'https://docs.falme.com.br/'
+baseURL = 'https://blog.falme.com.br/'
 languageCode = 'en-us'
 title = 'Falme Docs'
 theme = 'hugo-book'
