@@ -420,7 +420,7 @@ So we can add a breakpoint at somewhere like main+155, just after the values was
 
 And then read the memory from the RBP-0x30.
 
-So the question is, how we read and why start from -0x30.
+So the question is, how we read and why start from -0x30?
 
 Because this negative position, we are incrementing the values to read, so making the reading start from RBP-0x30 it will goes after to -0x2f, then -0x2e, etc...
 
@@ -430,7 +430,7 @@ and to read the string we will change the type from byte (x) to string (s). Same
 (gdb) x/1sb $rbp-0x30
 ```
 
-Another this is, we usually read a lot of bytes, but in this case we do `1sb`, we are reading 1 string. This is kinda weird in a length sense, but this will output each "String" and not "Character" from the memory.
+Another thing is, we usually read a lot of bytes, but in this case we do `1sb`, we are reading 1 string. This is kinda weird in a length sense, but this will output each "String" and not "Character" from the memory.
 
 Reading this value from memory we receive directly the flag to put into the answer.
 

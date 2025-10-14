@@ -154,44 +154,44 @@ Se sim, nós pulamos para a linha main+38, então voltamos para uma das linhas a
 0x000000000040113c <+54>:	jl     0x40112c <main+38>
 ```
 
-So, with that information, we can assure that we will not count every single time that it loops and add a value to EAX.
+Então, com essa informação, nós podemos assegurar que não iremos contar cada vez que o valor em EAX é modificado no loop.
 
-In fact, we will go to the end of the program, and just read what EAX is, like a good dynamic analysis want us to do.
+Na verdade, nós iremos até o fim do programa e ler o valor final de EAX, como uma boa análise dinâmica espera que façamos.
 
-First, we add a breakpoint to the end of the main function before the return. the `main+59` line is a good place to do this. So we go to gdb and do the following:
+Primeiro, adicionamos um breakpoint no final da função main logo antes do return. A linha `main+59` é um bom lugar para fazer isso. Então vamos ao gdb e fazer o seguinte:
 
 ```shell
 chmod +x ./debugger0_b
 gdb ./debugger0_b
 ```
 
-and inside gdb we set up a breakpoint, where it will pause the execution:
+e dentro do gdb nós vamos definir um breakpoint, onde ele vai pausar a execução do programa:
 
 ```shell
 (gdb) break *main+59
 ```
 
-And run the program normally through the GDB debugger:
+E rodar o programa normalmente pelo gdb debugger:
 
 ```shell
 (gdb) run
 ```
 
-After a little moment, it will stop with the following message:
+Depois de um momento, o programa irá parar com a seguinte mensagem:
 
 ```python
 Breakpoint 1, 0x0000000000401141 in main ()
 ```
 
-and now the program is paused as we asked on line `main+59` , you can check the address, is the same number. Now we can ask for the value of EAX, that will show the result for the flag in hexadecimal and decimal.
+Agora o programa está pausado na linha `main+59` como esperado, você pode checar o endereço, é o mesmo número. Agora nós podemos pedir pelo valor em EAX, que vai retornar com o valor da flag em hexadecimal e decimal.
 
 ```shell
 (gdb) info registers eax
 ```
 
-We take the result with picoCTF{value} and we have the flag:
+Nós formatamos o valor no picoCTF{resposta} e teremos a flag:
 
-{{% details title="Answer:Flag 2" open=false %}}
+{{% details title="Resposta: Flag 2" open=false %}}
 ```
 picoCTF{307019}
 ```
@@ -203,11 +203,15 @@ picoCTF{307019}
 
 > Now for something a little different. 0x2262c96b is loaded into memory in the main function. Examine byte-wise the memory that the constant is loaded in by using the GDB command x/4xb addr. The flag is the four bytes as they are stored in memory. If you find the bytes 0x11 0x22 0x33 0x44 in the memory location, your flag would be: picoCTF{0x11223344}. Debug this (file).
 
-After a brief explanation about how to read Memory in GDB, the exercise is presented.
+Em uma tradução livre seria algo como:
 
-We need to find the bytes in the memory address of the file `debugger0_c` . The tip is the value `0x2262c96b` in the main function.
+> Agora, algo um pouco diferente. 0x2262c96b é carregado na memória na função principal. Examine byte a byte a memória na qual a constante é carregada usando o comando GDB x/4xb addr. A flag são os quatro bytes armazenados na memória. Se encontrar os bytes 0x11 0x22 0x33 0x44 na localização da memória, o seu sinalizador será: picoCTF{0x11223344}. Depure isto (arquivo).
 
-So first of all, we need to disassemble the main function, same as before, resulting in the following assembly code:
+Depois de uma breve explicação de como ler a memória no GDB, o exercício é apresentado.
+
+Nós precisamos achar os bytes no endereço de memória do arquivo `debugger0_c`. A dica é o valor `0x2262c96b` na função main.
+
+Então primeiro de tudo, nós precisamos fazer disassemble da função main, mesma coisa de antes, resultando no seguinte código em assembly:
 
 ```python
 0x0000000000401106 <+0>:	endbr64
@@ -221,63 +225,61 @@ So first of all, we need to disassemble the main function, same as before, resul
 0x0000000000401120 <+26>:	ret
 ```
 
-following this, the value `0x2262c96b` is moved (MOV at +15) to the memory address $RBP-0x4.
+seguindo os comandos, o valor `0x2262c96b` é movido (MOV em <+15>) para o endereço de memória $RBP-0x4.
 
-First some explanations. RBP register is the Register Base Pointer, it point to the base of the Stack Frame, and the addition of the values is through the negative numbering.
+Primeiro, algumas explicações. O registro RBP se chama Register Base Pointer, ele aponta para a base do Stack Frame, e a adição de seus valores seguem a numeração negativa.
 
-So usually we go for something like RBP-0x4 or RBP-0x8, this is adding values from the RBP (Register Base Pointer) to the RSP (Register Stack Pointer).
+Então, normalmente, o RBP segue adicionando valores como RBP-0x4 ou RPB-0x8, ele está adicionando valors do RBP (Register Base Pointer) para o RSP (Register Stack Pointer).
 
-So we are moving the value `0x2262c96b` to the Register Base Pointer position Minus 4.
+Então nós estamos movendo o valor `0x2262c96b` para a posição do Register Base Pointer menos 4.
 
-Add a breakpoint at main+25 and run the program:
+Adicione um breakpoint em main+25 e rode o programa:
 
 ```shell
 (gdb) break *main+25
 (gdb) run
 ```
 
-And call the values inside RBP-0x4. where `x/` is the command to call the memory reading, we want 4 bytes (4) in hexadecimal (x) each with byte-sized (b) resulting the command `4xb` .
+E chame os valores dentro de RBP-0x4. onde `x/` é o comando pra chamar a leitura da memória, nós queremos 4 bytes (4) em hexadecimal (x) cada um no tamanho de byte (b) resultando no comando `4xb` .
 
 ```shell
 (gdb) x/4xb $rbp-0x4
 ```
 
-Resulting in:
+Resultando em:
 
 ```python
 0x7fffffffddbc:	0x6b	0xc9	0x62	0x22
 ```
 
-Well, actually the value returned is inverted from the original data `0x2262c96b` . It's because we are dealing with Little endian.
+Bem, na verdade, o valor retornado está invertido de acordo com o valor original `0x2262c96b`. Isso acontece porque estamos lidando com Little endian.
 
-We have Big Endian and Small Endian. Will add two images from a video (no longer listed) from C3rb3ru5d3d53c explaining this visually:
+Nós temos Big Endian e Little Endian. Irei adicionar duas imagens de um video (não está mais disponível) da C3rb3ru5d3d53c explicando isso visualmente:
 
 ### Big Endian
 
-Normally "correct" the way we read the hexadecimal values.
+Normalmente o jeito "correto" de como lemos valores hexadecimal.
 
-Where
+Onde
 
- - M : is the Most Significant Byte
- - L : is the Least Significant Byte
+ - M : é o Byte Mais Significante (Most Significant Byte)
+ - L : é o Byte Menos Significante (Least Significant Byte)
 
 ![Big Endian](/images/intro-to-debuggers/1.jpg)
 
 ### Little Endian
 
-Normally "inverted" the way we read the hexadecimal values.
+Normalmente o jeito "invertido" de como lemos valores hexadecimal.
 
 ![Little Endian](/images/intro-to-debuggers/2.jpg)
 
+Então o exercício pede para nós escrevermos a flag do jeito que estamos lendo ela, então, como Little Endian, do jeito que está na tela.
 
-So the exercise asked for us to write down the flag as we read them, so, as Little endian is on the screen.
+É simplesmente um exercício pra ler um valor na memória e pra entender Little endian.
 
-simply an exercise to just read a value in memory and understand Little endian.
+Nós pegamos o resultado e colocamos no picoCTF{resposta} e assim teremos a flag:
 
-
-We take the result with picoCTF{value} and we have the flag:
-
-{{% details title="Answer:Flag 3" open=false %}}
+{{% details title="Resposta: Flag 3" open=false %}}
 ```
 picoCTF{0x6bc96222}
 ```
@@ -289,9 +291,13 @@ picoCTF{0x6bc96222}
 
 > main calls a function that multiplies eax by a constant. The flag for this challenge is that constant in decimal base. If the constant you find is 0x1000, the flag will be picoCTF{4096}. Debug this (file).
 
-This exercise is very simple, is to show that we can call and disassemble many functions, not only main. we need to find a constant number that multiplies with EAX.
+Em uma tradução livre seria algo como:
 
-So me make the same as the other exercises to disassemble the main function returning the following:
+> A main chama uma função que multiplica eax por uma constante. A flag para este desafio é essa constante na base decimal. Se a constante que encontrar for 0x1000, a bandeira será picoCTF{4096}. Depure isto (arquivo).
+
+Este exercício é muito simples, é para mostrar que podemos chamar e fazer disassemble de muitas funções, não apenas a main. Precisamos encontrar um número constante que multiplique por EAX.
+
+Então, fazemos o mesmo que nos outros exercícios, disassemble a função main, retornando o seguinte:
 
 ```python
 0x000000000040111c <+0>:	endbr64
@@ -311,13 +317,13 @@ So me make the same as the other exercises to disassemble the main function retu
 0x000000000040114e <+50>:	ret
 ```
 
-The line main+38 calls another function called "func1". Maybe the multiplication is there. Lets check it out
+A linha main+38 chama outra função chamada "func1". Talvez a multiplicação esteja lá. Vamos dar uma olhada
 
 ```shell
 (gdb) disassemble func1
 ```
 
-Returns us the following:
+Retorna o seguinte:
 
 ```python
 0x0000000000401106 <+0>:	endbr64
@@ -330,18 +336,18 @@ Returns us the following:
 0x000000000040111b <+21>:	ret
 ```
 
-At the line func+14 we have a multiplication with EAX, maybe the value 0x3269 is what we need.
+Na linha func1+14 nós temos uma multiplicação com EAX, talvez o valor 0x3269 é o que precisamos.
 
-But we actually need the decimal value, so we put it in our python script [HexToDec.py](https://github.com/Falme-SideProjects/python-hex-to-dec/blob/main/HexToDec.py), then we can have the answer:
+Mas na verdade preciamos do valor em decimal, então colocamos esse valor no nosso script [HexToDec.py](https://github.com/Falme-SideProjects/python-hex-to-dec/blob/main/HexToDec.py), assim tendo nossa resposta:
 
 ```python
 python3 HexToDec.py 0x3269
 ```
 
-We take the result with picoCTF{value} and we have the flag:
+E colocamos no formato picoCTF{resposta} e teremos a flag:
 
 
-{{% details title="Answer: Flag 4" open=false %}}
+{{% details title="Resposta: Flag 4" open=false %}}
 ```
 picoCTF{12905}
 ```
@@ -353,9 +359,13 @@ picoCTF{12905}
 
 > This program has constructed the flag using hex ascii values. Identify the flag text by disassembling the program. You can download the file from here.
 
-This is the challenge of the module. The mission is to find the flag with GDB in bytes, and then convert to ASCII/String.
+Em uma tradução livre seria algo como:
 
-First, let's look into the main function:
+> Este programa constroi a flag usando valores hexadecimais ASCII. Identifique o texto da flag desmontando o programa. Pode baixar o arquivo aqui.
+
+Este é o desafio do módulo. A missão é encontrar a flag com o GDB em bytes e, em seguida, convertê-la para ASCII/String.
+
+Primeiro, vamos examinar a função main:
 
 ```python
 0x0000555555555169 <+0>:	endbr64
@@ -411,32 +421,32 @@ First, let's look into the main function:
 0x0000555555555230 <+199>:	ret
 ```
 
-We have many addition of bytes into the memory from main+27 (RBP-0x30) to main+147 (RBP-0x12).
+Temos muitas adições de bytes na memória, de main+27 (RBP-0x30) até main+147 (RBP-0x12).
 
-So we can add a breakpoint at somewhere like main+155, just after the values was added to memory.
+Portanto, podemos adicionar um ponto de interrupção em algum lugar como main+155, logo após os valores terem sido adicionados à memória.
 
 ```shell
 (gdb) break *main+155
 (gdb) run
 ```
 
-And then read the memory from the RBP-0x30.
+E, em seguida, ler a memória desde RBP-0x30.
 
-So the question is, how we read and why start from -0x30.
+Então, a questão é: como lemos e por que começamos em -0x30?
 
-Because this negative position, we are incrementing the values to read, so making the reading start from RBP-0x30 it will goes after to -0x2f, then -0x2e, etc...
+porque nesta posição negativa, estamos incrementando os valores pra ler, fazendo com que a leitura comece a partir do RBP-0x30, ela seguirá para -0x2f, depois -0x2e, etc...
 
-and to read the string we will change the type from byte (x) to string (s). Same as the last one we've done, but changing this we got
+E para ler a string, vamos alterar o tipo de byte (x) para string (s). Da mesma forma que fizemos da última vez, mas alterando isso, teremos
 
 ```shell
 (gdb) x/1sb $rbp-0x30
 ```
 
-Another this is, we usually read a lot of bytes, but in this case we do `1sb`, we are reading 1 string. This is kinda weird in a length sense, but this will output each "String" and not "Character" from the memory.
+Outra coisa é que normalmente lemos muitos bytes, mas neste caso fazemos `1sb`, pra ler 1 string. Isto é um pouco estranho em termos de comprimento, mas isso irá produzir cada «String» e não «Caractere» da memória.
 
-Reading this value from memory we receive directly the flag to put into the answer.
+Ao ler este valor da memória, recebemos diretamente a flag para colocar na resposta.
 
-{{% details title="Answer: Flag 5" open=false %}}
+{{% details title="Resposta: Flag 5" open=false %}}
 ```
 picoCTF{ASCII_IS_EASY_8960F0AF}
 ```
