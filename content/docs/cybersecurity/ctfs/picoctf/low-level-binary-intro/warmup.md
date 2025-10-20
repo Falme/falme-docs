@@ -17,7 +17,7 @@ So the first ones are very basic, the idea is to make a step-by-step learning ro
 
 ![Image description](/images/low-level-binary-intro-warmup/1.jpg)
 
-As it says in the webpage : "Playlists are collections of challenges, sometimes with readings or games, that are curated to help students learn a particular topic."
+As it says in the webpage: "Playlists are collections of challenges, sometimes with readings or games, that are curated to help students learn a particular topic."
 
 So I'll start with <a href='https://play.picoctf.org/playlists/2' target='_blank'>"Low Level Binary Intro"</a>, that can be helpful with my current job (Game Development).
 
