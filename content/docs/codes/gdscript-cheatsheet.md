@@ -36,6 +36,17 @@ func this_is_a_function() -> void:
 	print("example")
 ```
 
+Conditionals / If-else
+
+```gdscript
+if true == false:
+    print("first if")
+elif false == true:
+    print("Else if")
+else:
+    print("else")
+```
+
 
 ### Built In Basic Node Functions
 
@@ -60,16 +71,16 @@ func _physics_process(delta):
 
 ### Public and Private Nomenclature
 
-Apply an _ (underscore) for private methods, and none for public methods
+Apply an _ (underline) for private methods, and none for public methods
 ```gdscript
 # Private
 var _my_private_variable : int = 10
-func _my_private_function()
+func _my_private_function():
 	pass
 
 # Public
 var my_public_variable : int = 10
-func my_public_function()
+func my_public_function():
 	pass
 ```
 
@@ -135,10 +146,19 @@ class_name VibrationArea2D extends Node
 
 ### Signals
 
+Add signal to an script
+```gdscript
+# structure : signal [signal_name]
+signal timeout
+```
+
 Call an existing signal to be emmited
 ```gdscript
 # structure : [node].[signal_name].connect([function_to_be_called])
 timer.timeout.connect(_on_timer_timeout)
+
+func _on_timer_timeout() -> void:
+    pass
 ```
 
 
