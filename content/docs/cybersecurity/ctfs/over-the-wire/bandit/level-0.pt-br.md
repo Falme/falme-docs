@@ -1,6 +1,6 @@
 ---
 title: "Level 0"
-weight: 0
+# weight: 0
 # bookFlatSection: false
 # bookToc: true
 # bookHidden: false
@@ -41,9 +41,9 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit0
 ```
 
 Onde:
-- ssh : É a chamada do comando SSH
-- bandit.labs.overthewire.org : é o host a se conectar
-- -p 2220 : é a porta a se conectar, no caso do bandit é sempre 2220
-- -l bandit0 : é o nome de usuário que está conectando, nesse caso, bandit0.
+- `ssh` : É a chamada do comando SSH
+- `bandit.labs.overthewire.org` : é o host a se conectar
+- `-p 2220` : é a porta a se conectar, no caso do bandit é sempre 2220
+- `-l bandit0` : é o nome de usuário que está conectando, nesse caso, bandit0.
 
 Sendo assim, terminamos o level0. Agora podemos ir para o Level1.

@@ -1,6 +1,6 @@
 ---
 title: "Level 0"
-weight: 0
+# weight: 0
 # bookFlatSection: false
 # bookToc: true
 # bookHidden: false
@@ -37,9 +37,9 @@ ssh bandit.labs.overthewire.org -p 2220 -l bandit0
 ```
 
 Where:
-- ssh : Is the SSH command call 
-- bandit.labs.overthewire.org : Is the host to connect
-- -p 2220 : Is the door to connect, in the case of bandit, is always 2220
-- -l bandit0 : Is the username that is connecting, in this case, bandit0
+- `ssh` : Is the SSH command call 
+- `bandit.labs.overthewire.org` : Is the host to connect
+- `-p 2220` : Is the door to connect, in the case of bandit, is always 2220
+- `-l bandit0` : Is the username that is connecting, in this case, bandit0
 
 So, with that, we finished level0. Now we can go to Level1.
