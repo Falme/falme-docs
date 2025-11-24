@@ -1,5 +1,5 @@
 ---
-title: "Level 9"
+title: "Level 09"
 # weight: 1
 # bookFlatSection: false
 # bookToc: true
@@ -9,7 +9,7 @@ title: "Level 9"
 # bookSearchExclude: false
 # bookHref: ''
 ---
-# Over The Wire - Bandit - Level 9
+# Over The Wire - Bandit - Level 09
 
 ## Objetivo
 > The password for the next level is stored in the file data.txt and is the only line of text that occurs only once

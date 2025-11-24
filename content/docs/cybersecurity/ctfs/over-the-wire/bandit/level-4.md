@@ -1,5 +1,5 @@
 ---
-title: "Level 4"
+title: "Level 04"
 # weight: 1
 # bookFlatSection: false
 # bookToc: true
@@ -9,7 +9,7 @@ title: "Level 4"
 # bookSearchExclude: false
 # bookHref: ''
 ---
-# Over The Wire - Bandit - Level 4
+# Over The Wire - Bandit - Level 04
 
 ## Level Goal
 > The password for the next level is stored in a hidden file in the `inhere` directory.

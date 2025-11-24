@@ -1,5 +1,5 @@
 ---
-title: "Level 1"
+title: "Level 01"
 # weight: 1
 # bookFlatSection: false
 # bookToc: true
@@ -9,7 +9,7 @@ title: "Level 1"
 # bookSearchExclude: false
 # bookHref: ''
 ---
-# Over The Wire - Bandit - Level 1
+# Over The Wire - Bandit - Level 01
 
 From now on, the challenge will begin, normally I use a spoiler section for the 
 flag answer, but in the case of the OverTheWire, the password change 

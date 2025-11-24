@@ -1,5 +1,5 @@
 ---
-title: "Level 7"
+title: "Level 07"
 # weight: 1
 # bookFlatSection: false
 # bookToc: true
@@ -9,7 +9,7 @@ title: "Level 7"
 # bookSearchExclude: false
 # bookHref: ''
 ---
-# Over The Wire - Bandit - Level 7
+# Over The Wire - Bandit - Level 07
 
 ## Level Goal
 > The password for the next level is stored somewhere on the server and has all of the following properties:

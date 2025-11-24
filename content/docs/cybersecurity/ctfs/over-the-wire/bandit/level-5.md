@@ -1,5 +1,5 @@
 ---
-title: "Level 5"
+title: "Level 05"
 # weight: 1
 # bookFlatSection: false
 # bookToc: true
@@ -9,7 +9,7 @@ title: "Level 5"
 # bookSearchExclude: false
 # bookHref: ''
 ---
-# Over The Wire - Bandit - Level 5
+# Over The Wire - Bandit - Level 05
 
 ## Level Goal
 > The password for the next level is stored in the only human-readable file in the `inhere` directory. Tip: if your terminal is messed up, try the “reset” command.

@@ -1,5 +1,5 @@
 ---
-title: "Level 2"
+title: "Level 02"
 # weight: 1
 # bookFlatSection: false
 # bookToc: true
@@ -9,7 +9,7 @@ title: "Level 2"
 # bookSearchExclude: false
 # bookHref: ''
 ---
-# Over The Wire - Bandit - Level 2
+# Over The Wire - Bandit - Level 02
 
 ## Level Goal
 > The password for the next level is stored in a file called - located in the home directory

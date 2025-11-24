@@ -1,5 +1,5 @@
 ---
-title: "Level 0"
+title: "Level 00"
 # weight: 0
 # bookFlatSection: false
 # bookToc: true
@@ -9,7 +9,7 @@ title: "Level 0"
 # bookSearchExclude: false
 # bookHref: ''
 ---
-# Over The Wire - Bandit - Level 0
+# Over The Wire - Bandit - Level 00
 
 Olá, bem vindes a minha jornada no CTF do Over The Wire, um dos meus CTFs 
 favoritos. 
@@ -21,7 +21,7 @@ Lembrando que essa documentação é para mim, e que se você não resolveu esse
 por conta própria, não leia essas postagens, vá e resolva os desafios por conta 
 própria, não estrague essa experiência.
 
-## Level 0
+## Level 00
 
 > The goal of this level is for you to log into the game using SSH. The host to which you need to connect is bandit.labs.overthewire.org, on port 2220. The username is bandit0 and the password is bandit0. Once logged in, go to the Level 1 page to find out how to beat Level 1.
 

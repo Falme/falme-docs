@@ -1,5 +1,5 @@
 ---
-title: "Level 1"
+title: "Level 01"
 # weight: 1
 # bookFlatSection: false
 # bookToc: true
@@ -9,7 +9,7 @@ title: "Level 1"
 # bookSearchExclude: false
 # bookHref: ''
 ---
-# Over The Wire - Bandit - Level 1
+# Over The Wire - Bandit - Level 01
 
 Daqui pra frente, os desafios irão realmente começar. Normalmente eu uso a tag 
 de spoiler para o resultado da flag, mas no caso do OverTheWire, a senha muda 

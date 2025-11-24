@@ -1,5 +1,5 @@
 ---
-title: "Level 8"
+title: "Level 08"
 # weight: 1
 # bookFlatSection: false
 # bookToc: true
@@ -9,7 +9,7 @@ title: "Level 8"
 # bookSearchExclude: false
 # bookHref: ''
 ---
-# Over The Wire - Bandit - Level 8
+# Over The Wire - Bandit - Level 08
 
 ## Level Goal
 > The password for the next level is stored in the file data.txt next to the word millionth
