@@ -16,7 +16,7 @@ title: "Level 13"
 
 Em uma tradução livre, seria algo como:
 
-A senha para o próximo level está armazenada no arquivo data.txt, que é um dump hexadecimal de um arquivo que foi compactado repetidamente. Para este level, pode ser útil criar um diretório em /tmp onde você possa trabalhar. Use o comando mkdir com um nome de diretório difícil de adivinhar. Ou melhor, use o comando “mktemp -d”. Em seguida, copie o arquivo de dados usando cp e renomeie-o usando mv (leia as páginas do manual!).
+> A senha para o próximo level está armazenada no arquivo data.txt, que é um dump hexadecimal de um arquivo que foi compactado repetidamente. Para este level, pode ser útil criar um diretório em /tmp onde você possa trabalhar. Use o comando mkdir com um nome de diretório difícil de adivinhar. Ou melhor, use o comando “mktemp -d”. Em seguida, copie o arquivo de dados usando cp e renomeie-o usando mv (leia as páginas do manual!).
 
 ## Comandos que você pode precisar para resolver esse level
 > grep, sort, uniq, strings, base64, tr, tar, gzip, bzip2, xxd, mkdir, cp, mv, file
