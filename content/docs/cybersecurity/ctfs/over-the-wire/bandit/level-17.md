@@ -41,4 +41,12 @@ With that, we have the result of 5 ports open, but with no information. We know 
 ncat --ssl localhost {port}
 ```
 
-Normally, the wrong port will result in an error, and the correct one will return nothing. Just put the current level password and it will return with the next level password.
+Normally, the wrong port will result in an error, and the correct one will return nothing. Just put the current level password and it will return with the next level RSA credentials.
+
+Save the credentials to a new file, and use the command `ssh` to connect without need of a password:
+
+```shell
+ssh -i ./key-saved.private bandit.labs.overthewire.org -p 2220 -l bandit17
+```
+
+Any questions, checkout the level 14 challenge.

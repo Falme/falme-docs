@@ -47,5 +47,12 @@ Com isso, temos o resultado de 5 portas abertas, mas sem nenhuma informação. S
 ncat --ssl localhost {port}
 ```
 
-Normalmente, a porta incorreta resultará em um erro, e a porta correta não retornará nada. Basta inserir a senha do level atual e ela retornará a senha do próximo level.
+Normalmente, uma porta incorreta resultará em um erro, e a porta correta não retornará nada. Basta inserir a senha do level atual e o sistema retornará as credenciais RSA do próximo level.
 
+Salve as credenciais em um novo arquivo e use o comando `ssh` para se conectar sem precisar de uma senha:
+
+```shell
+ssh -i ./key-saved.private bandit.labs.overthewire.org -p 2220 -l bandit17
+```
+
+Se tiver alguma dúvida, confira o desafio do level 14.
