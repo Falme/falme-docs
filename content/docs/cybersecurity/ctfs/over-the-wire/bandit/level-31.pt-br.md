@@ -27,7 +27,7 @@ Em uma tradução livre, seria algo como:
 
 ## Passos
 
-Primeiramente, clone o repositório como nos níveis anteriores. Depois disso, podemos continuar a jornada para encontrar a senha do próximo nível.
+Primeiramente, clone o repositório como nos níveis anteriores. Depois disso, podemos continuar a jornada para encontrar a senha do próximo level.
 
 Desta vez, o `git log` e o `git show` mostram apenas um arquivo, sem alterações. Parece que chegamos a um beco sem saída. Talvez tenha um branch diferente, mas nenhum branch nos leva à senha. 
 
@@ -56,6 +56,6 @@ Então, vamos executar o seguinte comando:
 git unpack-file 843...351
 ```
 
-Depois disso, um arquivo chamado `.merge_file_uEpLe8` será criado na mesma pasta. Em seguida, use o comando `cat` para ler o arquivo descompactado e revelar a senha para o próximo nível.
+Depois disso, um arquivo chamado `.merge_file_uEpLe8` será criado na mesma pasta. Em seguida, use o comando `cat` para ler o arquivo descompactado e revelar a senha para o próximo level.
 
 
