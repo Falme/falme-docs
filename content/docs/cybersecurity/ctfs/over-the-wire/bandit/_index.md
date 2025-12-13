@@ -1,4 +1,0 @@
----
-title: "Bandit"
-bookCollapseSection: true
----
