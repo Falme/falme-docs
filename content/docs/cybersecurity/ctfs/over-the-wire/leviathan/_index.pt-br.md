@@ -1,4 +1,0 @@
----
-title: "Leviathan"
-bookCollapseSection: true
----
