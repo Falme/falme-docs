@@ -3,7 +3,7 @@ title: "Leviathan"
 # weight: 0
 # bookFlatSection: false
 # bookToc: true
-# bookHidden: false
+bookHidden: true
 # bookCollapseSection: false
 # bookComments: false
 # bookSearchExclude: false
@@ -17,7 +17,7 @@ Mind that this documentation is for me only, if you didn't solve this ctf by you
 
 ---
 
-## Level 00
+## Level 00 -> Level 01
 
 ### Steps
 
@@ -55,7 +55,7 @@ Searching for the word "pass" (as in "password"), we have a result from the file
 
 ---
 
-## Level 00 -> Level 01
+## Level 01 -> Level 02
 
 This challenge have 2 ways to solve it, one is a random way (the way I solved first) and a not random way. Let's check both of them.
 
@@ -103,7 +103,7 @@ And now, we have the password for the next level.
 
 ---
 
-## Level 01 -> Level 02
+## Level 02 -> Level 03
 
 This challenge teach us about the dangers of redirecting a program execution of a system from one user to another, in this case the `cat` command.
 
@@ -151,7 +151,7 @@ Now we are in the leviathan3 user terminal. Just access the file `/etc/leviathan
 
 ---
 
-## Level 02 -> Level 03
+## Level 03 -> Level 04
 
 Have I told you about the difficulty progression of the Leviathan challenges before? It's very weird, we are going to do in this challenge the same we did before. 
 
@@ -191,7 +191,7 @@ Now, we just need to read the password at `/etc/leviathan_pass/leviathan4` to ge
 
 ---
 
-## Level 03 -> Level 04
+## Level 04 -> Level 05
 
 ### Steps
 
@@ -203,5 +203,65 @@ This one is very simple, just put the binary into some "binary to text converter
 
 ---
 
-## Level 04 -> Level 05
+## Level 05 -> Level 06
 
+### Steps
+
+This time the file we need to exploit is named "leviathan5", that can be found in the home directory.
+
+Running the program `~/leviathan5` results in an error with the text:
+
+```
+Cannot find /tmp/file.log
+```
+
+This means that it looks for a file called "file.log" in the "/tmp/" folder. Ok, let's create the file with `touch` command:
+
+```shell
+touch /tmp/file.log
+```
+
+After creating the "file.log" and running the "leviathan5" program again, the same error happens. That's because the "file.log" is being constantly erased, not being able to keep the information in the /tmp/ folder.
+
+So let's make the file and read it in the same line. We are going to `echo` a test text, so we can see if anything changes.
+
+```shell
+echo "test" > /tmp/file.log && ~/leviathan5
+```
+
+This time, no error is presented, actually, it returns the same text we added to the file.log: "test".
+
+So, the program just reproduce the `echo` command as another user. Let's make a link from the "/etc/leviathan_pass/leviathan6" to "/tmp/file.log", making the files to be the same, but read differently.
+
+```shell
+ln -s /etc/leviathan_pass/leviathan6 /tmp/file.log && ~/leviathan5
+```
+
+Success! With that, the content of /tmp/file.log is the same as the leviathan6 password file. We have the password for the next level.
+
+---
+
+## Level 06 -> Level 07
+
+### Steps
+
+After connecting to the leviathan6 user, we can find an executable file named "leviathan6", this file requires a password with 4 digits, which we do not know yet.
+
+The command `ltrace` and `strace` does not return with any possible numbers to try, so, this time, we are going to make a script to bruteforce the password.
+
+Because it's only 4 digits, this is possible and will be quick. So, let's create a temporary directory with `mktemp` and create a new shell script called `bruteforce.sh` in that folder. Also, don't forget to make `chmod +x ./bruteforce.sh` to make the script executable.
+
+The script will look something like this.
+
+```bash
+#!/bin/bash
+
+for i in {0000..9999}
+do
+	~/leviathan6 $i
+done
+```
+
+After running for some seconds, we have the access to a new terminal, using the `whoami` command, we can see that we are logged as leviathan7. Just open the "/etc/leviathan_pass/leviathan7" with the `cat` command, and we have our final password.
+
+---

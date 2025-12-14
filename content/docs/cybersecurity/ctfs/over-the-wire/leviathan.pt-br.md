@@ -3,7 +3,7 @@ title: "Leviathan"
 # weight: 0
 # bookFlatSection: false
 # bookToc: true
-# bookHidden: false
+bookHidden: true
 # bookCollapseSection: false
 # bookComments: false
 # bookSearchExclude: false
@@ -17,7 +17,7 @@ Lembre-se que esta documentação é apenas para mim. Se você não resolveu est
 
 ---
 
-## Level 0
+## Level 00 -> Level 01
 
 ### Passos
 
@@ -55,7 +55,7 @@ Ao pesquisar pela palavra "pass" (como em "password"), temos um resultado do arq
 
 ---
 
-## Level 00 -> Level 01
+## Level 01 -> Level 02
 
 Este desafio tem 2 maneiras de ser resolvido: uma aleatória (a que eu resolvi primeiro) e outra não aleatória. Vamos conferir ambas.
 
@@ -103,7 +103,7 @@ E agora, temos a senha para o próximo level.
 
 ---
 
-## Level 01 -> Level 02
+## Level 02 -> Level 03
 
 Este desafio nos ensina sobre os perigos de redirecionar a execução de um programa de um usuário para outro, neste caso, o comando `cat`.
 
@@ -151,7 +151,7 @@ Agora estamos no terminal do usuário leviathan3. Basta acessar o arquivo `/etc/
 
 ---
 
-## Level 02 -> Level 03
+## Level 03 -> Level 04
 
 Já falei com vocês sobre a progressão de dificuldade dos desafios Leviatã? É muito estranho, vamos fazer neste desafio exatamente o que fizemos antes. 
 
@@ -191,7 +191,7 @@ Agora, basta lermos a senha em `/etc/leviathan_pass/leviathan4` para obter a sen
 
 ---
 
-## Level 03 -> Level 04
+## Level 04 -> Level 05
 
 ### Passos
 
@@ -203,5 +203,65 @@ Este é muito simples, basta inserir o código binário em algum "conversor de b
 
 ---
 
-## Level 04 -> Level 05
+## Level 05 -> Level 06
 
+### Passos
+
+Desta vez, o arquivo que vamos explorar se chama "leviathan5" e pode ser encontrado no diretório home.
+
+Executar o programa `~/leviathan5` resulta em um erro com o seguinte texto:
+
+```
+Cannot find /tmp/file.log
+```
+
+Isso significa que ele procura um arquivo chamado "file.log" na pasta "/tmp/". Ok, vamos criar o arquivo com o comando `touch`:
+
+```shell
+touch /tmp/file.log
+```
+
+Após criar o arquivo "file.log" e executar o programa "leviathan5" novamente, o mesmo erro ocorre. Isso acontece porque o arquivo "file.log" está sendo apagado constantemente, não sendo possível manter as informações na pasta /tmp/.
+
+Então, vamos criar o arquivo e lê-lo na mesma linha. Vamos usar o comando `echo` para exibir um texto de teste e verificar se algo muda.
+
+```shell
+echo "test" > /tmp/file.log && ~/leviathan5
+```
+
+Desta vez, nenhum erro é apresentado. Na verdade, ele retorna o mesmo texto que adicionamos no arquivo file.log: "test".
+
+Então, o programa simplesmente reproduz o comando `echo` como se fosse outro usuário. Vamos criar um link de "/etc/leviathan_pass/leviathan6" para "/tmp/file.log", fazendo com que os arquivos sejam os mesmos, mas lidos de forma diferente.
+
+```shell
+ln -s /etc/leviathan_pass/leviathan6 /tmp/file.log && ~/leviathan5
+```
+
+Sucesso! Com isso, o conteúdo de /tmp/file.log é o mesmo que o arquivo de senha do leviathan6. Temos a senha para o próximo nível.
+
+---
+
+## Level 06 -> Level 07
+
+### Passos
+
+Após conectar ao usuário leviathan6, podemos encontrar um arquivo executável chamado "leviathan6". Este arquivo requer uma senha de 4 dígitos, que ainda não sabemos.
+
+Os comandos `ltrace` e `strace` não retornam nenhum número possível para tentar, então, desta vez, vamos criar um script para realizar um ataque de força bruta pra descobrir a senha.
+
+Como são apenas 4 dígitos, isso é possível e será bem rápido. Então, vamos criar um diretório temporário com `mktemp` e criar um novo script shell chamado `bruteforce.sh` nessa pasta. Além disso, não se esqueça de executar `chmod +x ./bruteforce.sh` para tornar o script executável.
+
+O script ficará mais ou menos assim:
+
+```bash
+#!/bin/bash
+
+for i in {0000..9999}
+do
+	~/leviathan6 $i
+done
+```
+
+Após alguns segundos de execução, temos acesso a um novo terminal. Usando o comando `whoami`, podemos ver que estamos logados como leviathan7. Basta abrir o arquivo "/etc/leviathan_pass/leviathan7" com o comando `cat` e teremos nossa senha final.
+
+---
