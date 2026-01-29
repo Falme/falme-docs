@@ -16,7 +16,7 @@ Hello and welcome to my journey through Over The Wire, one of my favorites CTFs.
 I've already completed this challenge years ago, but I decided to return to it 
 to revisit it, and this time writing about the solutions.
 
-Mind that this documentation is for me only, if you didn't solve this ctf by 
+Mind that this documentation is for me only, if you didn't solve this CTF by 
 yourself, do not read this posts, just go and solve these challenges for 
 yourself. Do not spoil your experience.
 
@@ -50,15 +50,13 @@ So, with that, we finished level0. Now we can go to Level1.
 
 ## Level 00 -> Level 01
 
-From now on, the challenge will begin, normally I use a spoiler section for the 
-flag answer, but in the case of the OverTheWire, the password change 
-occasionally, so I will only make a step-by-step guide with no final answer.
+From now on, the challenge will begin. Normally I use a spoiler section for the flag answer, but in the case of the OverTheWire, the password change occasionally, so I will only make a step-by-step guide with no final answer.
 
 ### Level Goal
 > The password for the next level is stored in a file called readme located in the home directory. Use this password to log into bandit1 using SSH. Whenever you find a password for a level, use SSH (on port 2220) to log into that level and continue the game.
 
 ### Commands you may need to solve this level
-> ls , cd , cat , file , du , find
+> ls, cd, cat, file, du, find
 
 
 ### Steps
@@ -78,7 +76,7 @@ So we first list all the files in the current folder with `ls`. It shows only a
 file named `readme`. That's the file containing the answer.
 
 To read the content of the file we will use a command called `cat`, this will 
-show it's content.
+show its content.
 
 With that we have a text with the password for the next level.
 
@@ -90,7 +88,7 @@ With that we have a text with the password for the next level.
 > The password for the next level is stored in a file called - located in the home directory
 
 ### Commands you may need to solve this level
-> ls , cd , cat , file , du , find
+> ls, cd, cat, file, du, find
 
 ### Steps
 
@@ -117,7 +115,7 @@ First let's explain the Input/Output redirection. If we make something like
 using `echo` the text `"test text"`, and then redirect the Output into a file 
 named `file.txt` using the `>` signal.
 
-Ok, if the `>` means output, the `<` means input, right?
+OK, if the `>` means output, the `<` means input, right?
 
 So let's Input the file `-` into the `cat` command, it will be something like:
 
@@ -135,7 +133,7 @@ And with that, we have the password for the next level.
 > The password for the next level is stored in a file called `--spaces in this filename--` located in the home directory
 
 ### Commands you may need to solve this level
-> ls , cd , cat , file , du , find
+> ls, cd, cat, file, du, find
 
 ### Steps
 
@@ -150,9 +148,7 @@ cat file.txt
 So in this case we have the program `cat` and an argument expected separated by 
 a space, a file named `file.txt`.
 
-Reading a file with space in the name cause confusion to the console, it can't 
-separate what is an space and what is an argument. To make it work we, 
-surprisingly, have two ways to read the file.
+Reading a file with space in the name cause confusion to the console, it can't separate what is an space and what is an argument. To make it work we, surprisingly, have two ways to read the file.
 
 ### Quotes
 
@@ -167,9 +163,7 @@ cat < "--spaces in this filename--"
 
 ### Backslash
 
-Backslash is also an special character, but it's used to "Escape a Character", 
-making a space be read as a space and not a separator. It will be something 
-like:
+Backslash is also a special character, but it's used to "Escape a Character", making a space be read as a space and not a separator. It will be something like:
 
 ```shell
 cat < --spaces\ in\ this\ filename--
@@ -186,12 +180,12 @@ With this, the answer to the next level is revealed.
 > The password for the next level is stored in a hidden file in the `inhere` directory.
 
 ### Commands you may need to solve this level
-> ls , cd , cat , file , du , find
+> ls, cd, cat, file, du, find
 
 ### Steps
 
 This challenge teaches us about hidden files and directories. In Linux, hidden 
-files is marked with a dot (`.`) before the file name. This makes it marked as 
+files is marked with a dot (`.`) before the filename. This makes it marked as 
 hidden and will not show in a common `ls` command.
 
 So if we use ls in the home directory, we can find the directory `inhere`. Then 
@@ -225,7 +219,7 @@ Reveals the password for the next level.
 > The password for the next level is stored in the only human-readable file in the `inhere` directory. Tip: if your terminal is messed up, try the “reset” command.
 
 ### Commands you may need to solve this level
-> ls , cd , cat , file , du , find
+> ls, cd, cat, file, du, find
 
 ### Steps
 
@@ -308,7 +302,7 @@ Resulting with the password for the next level.
 >    not executable  
 
 ### Commands you may need to solve this level
-> ls , cd , cat , file , du , find
+> ls, cd, cat, file, du, find
 
 ### Steps
 
@@ -329,7 +323,7 @@ This command will list all files in the current folder (that `./` means current 
               current user.
 ```
 
-Ok, now we can filter the results to be only the executable files, but that's not what we are looking for, we are looking for files that are NOT executable. Returning to the manual, we can find the `-not` option, that inverts the result of an option:
+OK, now we can filter the results to be only the executable files, but that's not what we are looking for, we are looking for files that are NOT executable. Returning to the manual, we can find the `-not` option, that inverts the result of an option:
 
 ```
 -not expr
@@ -378,7 +372,7 @@ Reading the file with the `cat` command, the password for the next level is reve
 >    33 bytes in size  
 
 ### Commands you may need to solve this level
-> ls , cd , cat , file , du , find , grep
+> ls, cd, cat, file, du, find, grep
 
 ### Steps
 
@@ -497,7 +491,7 @@ With this, the password for the next level will appear next to the word milliont
 
 ### Steps
 
-We need to find an unique line in the data.txt file that does not repeat, because this file is filled with possibilities for a password. The first instinct is to use the `uniq` command, because, in it's description:
+We need to find a unique line in the data.txt file that does not repeat, because this file is filled with possibilities for a password. The first instinct is to use the `uniq` command, because, in its description:
 
 ```
 uniq - report or omit repeated lines
@@ -538,7 +532,7 @@ With that, only the password to the next level will be printed.
 
 ### Steps
 
-Most of the file `data.txt` is filled with machine code, this means that is not human-readable, we could use the command `xxd` to read the file and find manually for the password, but there's too many content, and will take us too much time.
+Most of the file `data.txt` is filled with machine code, this means that is not human-readable. We could use the command `xxd` to read the file and find manually for the password, but there's too many content, and will take us too much time.
 
 So, we are going to think this way, we only need the readable part of the file, in another words, only the strings in the file. So we are going to use the `strings` command, where it shows only the strings inside a file and nothing more. Making something like:
 
@@ -605,7 +599,7 @@ For our challenge we will use a command called `tr`, the command translate the c
 echo "test" | tr "s" "N"
 ```
 
-In the case above, we are using `tr` to change the 's' character to a 'N' character. The result will be `teNt`, with N in uppercase, just like we wrote. But it's not only a single character that can be translated, but also a sequence of characters:
+In the case above, we are using `tr` to change the 's' character to an 'N' character. The result will be `teNt`, with N in uppercase, just like we wrote. But it's not only a single character that can be translated, but also a sequence of characters:
 
 ```shell
 echo "test" | tr "r-u" "N"
@@ -619,7 +613,7 @@ Now you might be wondering, if both of them have a ranged argument. Let's do thi
 echo "test" | tr "r-u" "N-Q"
 ```
 
-In the case above, we are translating the characters [r,s,t,u] to the [N,O,P,Q] characters. The result will be `PeOP`, because they will try to match the index position of both arrays to find the result. The 't' is at the same position as 'P' and 's' is at the same position as 'O'.
+In the case above, we are translating the characters [r, s, t, u] to the [N, O, P, Q] characters. The result will be `PeOP`, because they will try to match the index position of both arrays to find the result. The 't' is at the same position as 'P' and 's' is at the same position as 'O'.
 
 So, now we can make some changes to finish our challenge, we will do the following command:
 
@@ -652,7 +646,7 @@ The first Array of characters will be replaced by the second array of characters
 
 ### Steps
 
-This challenge is kinda weird for me, I don't know if I missed something to make it easier, but it was kinda of a struggle to finish it.
+This challenge is kinda weird for me, I don't know if I missed something to make it easier, but it was kind of a struggle to finish it.
 
 The first thing to do is to read the file `data.txt` with the `cat` command. It's a bunch of text of a hexdump. A hexdump is a datadump of a binary file to text showing more information about the file, probably made with the `xxd` command.
 
@@ -705,7 +699,7 @@ Repeating for some time, you will find a file that is an ASCII with the password
 
 Normally we access a level using the `ssh` command with a password request, but this time we are using a private key. A secure connection using public and private keys are beyond the scope of this writeup, but I can assure that a private key should not be accessible for other users. This is the catch of this challenge, the private key is accessible and we are going to use it to access the next level.
 
-At the home repository we can find the file `sshkey.private`. This is a RSA Private Key, and we can read it's content with the `cat` command, resulting in a bunch of encoded verification. We are going to copy this private key and save into our machine in a new file called `id_rsa`.
+At the home repository we can find the file `sshkey.private`. This is an RSA Private Key, and we can read its content with the `cat` command, resulting in a bunch of encoded verification. We are going to copy this private key and save into our machine in a new file called `id_rsa`.
 
 Now outside of the bandit user, we are going to connect to the next level with only the rsa key. The first place that the `ssh` verify for keys is at the path `~/.ssh`, so we are going to put our stolen private key there.
 
@@ -791,9 +785,9 @@ And after making the connection, we put the current level password and press ent
 
 ### Steps
 
-In this challenge, the way to solve it is the same as the last level (level 16), but the port that we need to connect is unknown in a range of 1000 ports (from 31000 to 32000), we need to find the correct port and connect to them via `ncat --ssl`.
+In this challenge, the way to solve it is the same as the last level (level 16), but the port that we need to connect is unknown in a range of 1000 ports (from 31000 to 32000). We need to find the correct port and connect to them via `ncat --ssl`.
 
-To find a port in a range, we will use a tool called `nmap`, this tool is a scanner of many things, and also a port scanner. We will use `nmap` to scan those 1000 ports and check which one is open and which one is closed. The command will be something like:
+To find a port in a range, we will use a tool called `nmap`, this tool is a scanner of many things, and a port scanner. We will use `nmap` to scan those 1000 ports and check which one is open and which one is closed. The command will be something like:
 
 ```shell
 nmap localhost -p 31000-32000
@@ -819,7 +813,7 @@ Save the credentials to a new file, and use the command `ssh` to connect without
 ssh -i ./key-saved.private bandit.labs.overthewire.org -p 2220 -l bandit17
 ```
 
-Any questions, checkout the level 14 challenge.
+Any questions, check out the level 14 challenge.
 
 ---
 

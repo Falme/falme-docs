@@ -56,7 +56,7 @@ func _ready():
 	print("Method Ready Called")
 ```
 
-Call a game loop Method (Similar to Update() with Time.deltaTime in Unity)
+Call a game loop method (Similar to Update() with Time.deltaTime in Unity)
 ```gdscript
 func _process(delta):
 	print("Method Process with Delta Called")

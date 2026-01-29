@@ -27,7 +27,7 @@ So what we need to do is:
 2. Disassemble the main function with GDB
 3. Gather the value of eax register at the end of main function
 
-In summary, we need to gather a assembly dump from the requested file, just like in the previous challenges.
+In summary, we need to gather an assembly dump from the requested file, just like in the previous challenges.
 
 So after downloaded the file, we can disassemble the main function with the following command in shell:
 
@@ -36,7 +36,7 @@ chmod +x ./debugger0_a
 gdb ./debugger0_a
 ```
 
-and inside gdb:
+And inside gdb:
 
 ```shell
 (gdb) disassemble main
@@ -62,7 +62,7 @@ It's kinda hard for me to read this one, maybe if we change to we are used to, t
 (gdb) disassemble main
 ```
 
-and that returns the following dump:
+And that returns the following dump:
 
 ```python
 0x0000000000001129 <+0>:	endbr64
@@ -133,7 +133,7 @@ Doing the same assembly dump as the previous exercise, we gather this instructio
 We can see 2 problems that we not faced before.
 
 1. EAX register is being called in multiple places
-2. we have JUMPs in the instruction, indicating a possible loop
+2. We have JUMPs in the instruction, indicating a possible loop
 
 The loop can be found as the following pattern:
 
@@ -156,14 +156,14 @@ So, with that information, we can assure that we will not count every single tim
 
 In fact, we will go to the end of the program, and just read what EAX is, like a good dynamic analysis want us to do.
 
-First, we add a breakpoint to the end of the main function before the return. the `main+59` line is a good place to do this. So we go to gdb and do the following:
+First, we add a breakpoint to the end of the main function before the return. The `main+59` line is a good place to do this. So we go to gdb and do the following:
 
 ```shell
 chmod +x ./debugger0_b
 gdb ./debugger0_b
 ```
 
-and inside gdb we set up a breakpoint, where it will pause the execution:
+And inside gdb we set up a breakpoint, where it will pause the execution:
 
 ```shell
 (gdb) break *main+59
@@ -181,7 +181,7 @@ After a little moment, it will stop with the following message:
 Breakpoint 1, 0x0000000000401141 in main ()
 ```
 
-and now the program is paused as we asked on line `main+59` , you can check the address, is the same number. Now we can ask for the value of EAX, that will show the result for the flag in hexadecimal and decimal.
+And now the program is paused as we asked on line `main+59` , you can check the address, is the same number. Now we can ask for the value of EAX, that will show the result for the flag in hexadecimal and decimal.
 
 ```shell
 (gdb) info registers eax
@@ -219,7 +219,7 @@ So first of all, we need to disassemble the main function, same as before, resul
 0x0000000000401120 <+26>:	ret
 ```
 
-following this, the value `0x2262c96b` is moved (MOV at +15) to the memory address $RBP-0x4.
+Following this, the value `0x2262c96b` is moved (MOV at +15) to the memory address $RBP-0x4.
 
 First some explanations. RBP register is the Register Base Pointer, it point to the base of the Stack Frame, and the addition of the values is through the negative numbering.
 
@@ -234,7 +234,7 @@ Add a breakpoint at main+25 and run the program:
 (gdb) run
 ```
 
-And call the values inside RBP-0x4. where `x/` is the command to call the memory reading, we want 4 bytes (4) in hexadecimal (x) each with byte-sized (b) resulting the command `4xb` .
+And call the values inside RBP-0x4, where `x/` is the command to call the memory reading. We want 4 bytes (4) in hexadecimal (x) each with byte-sized (b) resulting the command `4xb` .
 
 ```shell
 (gdb) x/4xb $rbp-0x4
@@ -270,7 +270,7 @@ Normally "inverted" the way we read the hexadecimal values.
 
 So the exercise asked for us to write down the flag as we read them, so, as Little endian is on the screen.
 
-simply an exercise to just read a value in memory and understand Little endian.
+Simply an exercise to just read a value in memory and understand Little endian.
 
 
 We take the result with picoCTF{value} and we have the flag:
@@ -287,7 +287,7 @@ picoCTF{0x6bc96222}
 
 > main calls a function that multiplies eax by a constant. The flag for this challenge is that constant in decimal base. If the constant you find is 0x1000, the flag will be picoCTF{4096}. Debug this (file).
 
-This exercise is very simple, is to show that we can call and disassemble many functions, not only main. we need to find a constant number that multiplies with EAX.
+This exercise is very simple, is to show that we can call and disassemble many functions, not only main. We need to find a constant number that multiplies with EAX.
 
 So me make the same as the other exercises to disassemble the main function returning the following:
 
@@ -309,7 +309,7 @@ So me make the same as the other exercises to disassemble the main function retu
 0x000000000040114e <+50>:	ret
 ```
 
-The line main+38 calls another function called "func1". Maybe the multiplication is there. Lets check it out
+The line main+38 calls another function called "func1". Maybe the multiplication is there. Let's check it out
 
 ```shell
 (gdb) disassemble func1
@@ -328,7 +328,7 @@ Returns us the following:
 0x000000000040111b <+21>:	ret
 ```
 
-At the line func+14 we have a multiplication with EAX, maybe the value 0x3269 is what we need.
+At the line func+14 we have multiplication with EAX, maybe the value 0x3269 is what we need.
 
 But we actually need the decimal value, so we put it in our python script [HexToDec.py](https://github.com/Falme-SideProjects/python-hex-to-dec/blob/main/HexToDec.py), then we can have the answer:
 
@@ -424,7 +424,7 @@ So the question is, how we read and why start from -0x30?
 
 Because this negative position, we are incrementing the values to read, so making the reading start from RBP-0x30 it will goes after to -0x2f, then -0x2e, etc...
 
-and to read the string we will change the type from byte (x) to string (s). Same as the last one we've done, but changing this we got
+And to read the string we will change the type from byte (x) to string (s). Same as the last one we've done, but changing this we got
 
 ```shell
 (gdb) x/1sb $rbp-0x30
