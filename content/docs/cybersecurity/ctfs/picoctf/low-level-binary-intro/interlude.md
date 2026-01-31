@@ -1,5 +1,5 @@
 ---
-title: "Intro to Debuggers"
+title: "Interlude"
 weight: 7
 # bookFlatSection: false
 # bookToc: true
@@ -82,4 +82,97 @@ picoCTF{f1l73r5_f41l_c0d3_r3f4c70r_m1gh7_5ucc33d_0b5f1131}
 
 > Can you figure out how this program works to get the flag?
 
+This is very similar to the previous one. We are going to analyze a python script and find vulnerabilities in it. After finding a vulnerability, we can apply to the netcat address and retrieve the flag.
+
+The program asks now to select a method from a range of numbers, from 1 to 4, limiting our input. The table is written in a variable named `func_table`:
+
+```python
+  global func_table
+
+  # This table is formatted for easier viewing, but it is really one line
+  func_table = \
+'''\
+print_table                     \
+read_variable                   \
+write_variable                  \
+getRandomNumber                 \
+'''
+```
+
+This is the list of functions possible to be called. This variable is being checked if is modified by it's size. If the table is changed in size, the program throws a message saying that it's currupted:
+
+```python
+FUNC_TABLE_SIZE = 4
+FUNC_TABLE_ENTRY_SIZE = 32
+CORRUPT_MESSAGE = 'Table corrupted. Try entering \'reset\' to fix it'
+
+def check_table():
+  global func_table
+
+  if( len(func_table) != FUNC_TABLE_ENTRY_SIZE * FUNC_TABLE_SIZE):
+    return False
+
+  return True
+```
+
+If the table is not 32 chars by 4 lines (32x4 characters), it is defined as "Corrupted". If we check the current table, we can see that this numbers match, filled with spaces:
+
+```python
+		32 Characters
+|-------------------------------|
+print_table                     \
+read_variable                   \
+write_variable                  \
+getRandomNumber                 \
+```
+
+We can also Read and Write a variable (such as `func_table` and `FUNC_TABLE_SIZE`). The `getRandomNumber` is the same as always.
+
+After reading and analyzing the code, we can experiment with the `func_table` and the write_variable function. The idea is to change the function "print_table" to "win" in the table without change the table size. Inputting something like:
+
+```python
+		32 Characters
+|-------------------------------|
+win                             \  <-- change
+read_variable                   \
+write_variable                  \
+getRandomNumber                 \
+```
+
+And then call the first function of the table, showing us the flag.
+
+This time, I'll be automating the input using a file.txt with the input that I desire to send at once. The file.txt will be something like:
+
+```
+3
+func_table
+'''win                             read_variable                   write_variable                  getRandomNumber                 '''
+1
+```
+
+The text will do:
+- 3 : Select to change a variable (write_variable)
+- func_table : name of the variable
+- '''win  ... : new value of the table
+- 1 : Select to call the first variable (before print_table, now win)
+
+And the shell command is:
+
+```bash
+cat file.txt | nc saturn.picoctf.net 69420
+```
+
+After the automated input ran into the netcat connection, we receive the following output, from the function "win()":
+
+```
+0x70 0x69 0x63 0x6f 0x43 0x54 0x46 0x7b 0x37 0x68 0x31 0x35 0x5f 0x31 0x35 0x5f 0x77 0x68 0x34 0x37 0x5f 0x77 0x33 0x5f 0x67 0x33 0x37 0x5f 0x77 0x31 0x37 0x68 0x5f 0x75 0x35 0x33 0x72 0x35 0x5f 0x31 0x6e 0x5f 0x63 0x68 0x34 0x72 0x67 0x33 0x5f 0x63 0x32 0x30 0x66 0x35 0x32 0x32 0x32 0x7d
+```
+
+After decoding this message, converting from hexadecimal to string, we have our flag:
+
+{{% details title="Answer: Flag Picker III" open=false %}}
+```
+picoCTF{7h15_15_wh47_w3_g37_w17h_u53r5_1n_ch4rg3_c20f5222}
+```
+{{% /details %}}
 
