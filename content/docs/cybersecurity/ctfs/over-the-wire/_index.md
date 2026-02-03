@@ -1,5 +1,5 @@
 ---
 title: "Over The Wire"
-bookHidden: true 
+# bookHidden: true 
 bookCollapseSection: true
 ---

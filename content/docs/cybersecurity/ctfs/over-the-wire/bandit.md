@@ -3,7 +3,7 @@ title: "Bandit"
 # weight: 0
 # bookFlatSection: false
 # bookToc: true
-bookHidden: true 
+# bookHidden: true 
 # bookCollapseSection: false
 # bookComments: false
 # bookSearchExclude: false
