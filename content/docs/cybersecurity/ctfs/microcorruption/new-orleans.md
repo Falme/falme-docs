@@ -1,5 +1,5 @@
 ---
-title: "Microcorruption - New Orleans"
+title: "New Orleans"
 weight: 1
 # bookFlatSection: false
 # bookToc: true
