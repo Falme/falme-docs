@@ -162,3 +162,19 @@ func _on_timer_timeout() -> void:
 ```
 
 
+### TileMapLayer
+
+Single Tile Collision to get Custom Data
+```gdscript
+# After collision with a body, call the signal to this function 
+# (same name) as in the signal
+#
+# in this example I'm using the parameters:
+# "background_tileMapLayer" as the name of the TileMapLayer Node
+# "isWater" as the Custom Data you want to get from the Tile
+func _on_area_2d_body_shape_entered(body_rid: RID, body: Node2D, _body_shape_index: int, _local_shape_index: int) -> void:
+	if body.name === "background_tileMapLayer":
+		var coords: Vector2i = body.get_coords_for_body_rid(body_rid)
+		var dir = body.get_cell_tile_data(coords).get_custom_data("isWater")
+```
+
