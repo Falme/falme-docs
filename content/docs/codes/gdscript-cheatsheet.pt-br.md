@@ -177,3 +177,12 @@ func _on_area_2d_body_shape_entered(body_rid: RID, body: Node2D, _body_shape_ind
 		var dir = body.get_cell_tile_data(coords).get_custom_data("isWater")
 ```
 
+
+### Exported Properties
+
+Adicionar categoria a um @export no editor (semelhante a \[Header()\] na Unity)
+```gdscript
+@export_category("Movement")
+@export var immediate_stop: bool = false
+@export var speed: float = 100
+```
