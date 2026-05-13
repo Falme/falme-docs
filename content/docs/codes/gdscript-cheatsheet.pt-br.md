@@ -186,3 +186,14 @@ Adicionar categoria a um @export no editor (semelhante a \[Header()\] na Unity)
 @export var immediate_stop: bool = false
 @export var speed: float = 100
 ```
+
+
+Garantir de que os dados em @export estejam preenchidos.
+```gdscript
+@export var speed: float
+@export var data: DataClass
+
+func _ready() -> void:
+	assert(data != null)
+	assert(speed > 0)
+```

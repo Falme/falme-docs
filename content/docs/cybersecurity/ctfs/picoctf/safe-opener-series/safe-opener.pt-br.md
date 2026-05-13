@@ -18,20 +18,20 @@ Hoje vamos resolver uma playlist no PicoGym chamada "Safe Opener", que consiste 
 
 A descrição do desafio segue abaixo:
 
-> Can you open this safe? 
-> I forgot the key to my safe but this program is supposed to help me with retrieving the lost key. 
-> Can you help me unlock my safe? 
-> Put the password you recover into the picoCTF flag format like: 
-> picoCTF{password}
+> Can you open this safe?  
+> I forgot the key to my safe but this program is supposed to help me with retrieving the lost key.  
+> Can you help me unlock my safe?  
+> Put the password you recover into the picoCTF flag format like:  
+> picoCTF{password}  
 
 
 Numa tradução livre, seria algo como:
 
-> Você consegue abrir este cofre? 
-> Eu esqueci a chave do meu cofre, mas esse programa deve me ajudar a recuperá-la. 
-> Você pode me ajudar a abrir meu cofre? 
-> Insira a senha recuperada no formato da flag picoCTF, como: 
-> picoCTF{password}
+> Você consegue abrir este cofre?  
+> Eu esqueci a chave do meu cofre, mas esse programa deve me ajudar a recuperá-la.  
+> Você pode me ajudar a abrir meu cofre?  
+> Insira a senha recuperada no formato da flag picoCTF, como:  
+> picoCTF{password}  
 
 Após baixar o arquivo chamado `SafeOpener.java`, podemos lê-lo usando o comando `cat` ou em qualquer editor de texto (como o Bloco de Notas ou gedit):
 
@@ -123,16 +123,16 @@ picoCTF{pl3as3_l3t_m3_1nt0_th3_saf3}
 
 A descrição do desafio segue abaixo:
 
-> What can you do with this file? 
-> I forgot the key to my safe but this file is supposed to help me with retrieving the lost key. 
-> Can you help me unlock my safe?
+> What can you do with this file?  
+> I forgot the key to my safe but this file is supposed to help me with retrieving the lost key.  
+> Can you help me unlock my safe?  
 
 
 Numa tradução livre, seria algo como:
 
-> O que você pode fazer com este arquivo? 
-> Eu esqueci a chave do meu cofre, mas esse arquivo deve me ajudar a recuperá-la. 
-> Você pode me ajudar a abrir meu cofre?
+> O que você pode fazer com este arquivo?  
+> Eu esqueci a chave do meu cofre, mas esse arquivo deve me ajudar a recuperá-la.  
+> Você pode me ajudar a abrir meu cofre?  
 
 
 Após baixar o arquivo chamado `SafeOpener.class`, podemos lê-lo usando o comando `cat` ou em qualquer editor de texto (como o Bloco de Notas ou gedit):

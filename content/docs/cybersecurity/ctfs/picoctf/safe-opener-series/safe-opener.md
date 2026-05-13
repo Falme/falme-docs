@@ -18,11 +18,11 @@ We are going to solve a playlist in PicoGym called "Safe Opener" today, it consi
 
 The description of the challenge follows:
 
-> Can you open this safe? 
-> I forgot the key to my safe but this program is supposed to help me with retrieving the lost key. 
-> Can you help me unlock my safe? 
-> Put the password you recover into the picoCTF flag format like: 
-> picoCTF{password}
+> Can you open this safe?  
+> I forgot the key to my safe but this program is supposed to help me with retrieving the lost key.  
+> Can you help me unlock my safe?  
+> Put the password you recover into the picoCTF flag format like:  
+> picoCTF{password}  
 
 After downloading the file named `SafeOpener.java`, we can read it using the `cat` command or using any text editor (like notepad or gedit):
 
@@ -114,9 +114,9 @@ picoCTF{pl3as3_l3t_m3_1nt0_th3_saf3}
 
 The description of the challenge follows:
 
-> What can you do with this file? 
-> I forgot the key to my safe but this file is supposed to help me with retrieving the lost key. 
-> Can you help me unlock my safe?
+> What can you do with this file?  
+> I forgot the key to my safe but this file is supposed to help me with retrieving the lost key.  
+> Can you help me unlock my safe?  
 
 After downloading the file named `SafeOpener.class`, we can read it using the `cat` command or using any text editor (like notepad or gedit):
 
