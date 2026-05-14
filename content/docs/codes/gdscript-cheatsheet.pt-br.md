@@ -197,3 +197,25 @@ func _ready() -> void:
 	assert(data != null)
 	assert(speed > 0)
 ```
+
+
+### Coroutines
+
+Await : Aguarde alguns segundos da corrotina
+```gdscript
+await get_tree().create_timer(1.0).timeout
+```
+
+
+Await : Aguarde que outra função finalize a corrotina.
+```gdscript
+
+func is_done_waiting() -> void:
+	await sleep_in_gameplay()
+	print("Finished await")
+
+
+func sleep_in_gameplay() -> bool:
+	await get_tree().create_timer(1.0).timeout
+	return true
+```
