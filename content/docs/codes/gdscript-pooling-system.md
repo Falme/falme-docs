@@ -27,12 +27,25 @@ extends Node
 @export var _model: PackedScene
 @export var _initial_pool_size: int
 
+# Spawn initial objects at once or one per frame?
+@export var _spawn_initial_pool_at_once: bool
+
 var _pool: Array[Node]
+var _current_initial_pool_index: int
 
 # Initialize pool with initial number of items
 func _ready() -> void:
-	for i in _initial_pool_size:
+	if _spawn_initial_pool_at_once:
+		for i in _initial_pool_size:
+			_create_item()
+
+		_current_initial_pool_index = _initial_pool_size
+
+
+func _process(_delta: float) -> void:
+	if _current_initial_pool_index < _initial_pool_size:
 		_create_item()
+		_current_initial_pool_index += 1
 
 
 func get_item() -> Node:
@@ -75,3 +88,19 @@ func _hide_item(item: Node) -> void:
 	if item is Node2D:
 		item.hide()
 ```
+
+---
+
+## How to use it?
+
+This script can be used in an empty Node (usually named 'ObjectPool' or similar). It can only handle one object type as a Resource.
+
+1. Create a Node in the scene
+2. Add the script `object_pool` to the created Node
+3. Add the object to be created in the `Model` field
+4. Add the number of objects to be created at the start of the game in the `Initial Pool Size` field
+5. Set if you want to spawn the objects at the start of the game at once or per frame in the `Spawn Initial Pool at Once` field
+	- True: It will spawn the objects in a quantity defined at `Initial Pool Size` all at once in the first frame
+	- False: It will spawn the objects in a quantity defined at `Initial Pool Size` one per frame
+
+All the objects that's waiting to be used will be stored inside the 'ObjectPool' Node, when you call an object to be used with the `get_item()` function, it will change parents and become visible.
