@@ -219,3 +219,25 @@ func sleep_in_gameplay() -> bool:
 	await get_tree().create_timer(1.0).timeout
 	return true
 ```
+
+
+### Input Map Hint
+
+Mostrar no editor (@export ou \[Serialized\]) a lista de ações do input map
+
+Só mostrar as ações do input map da engine:
+```gdscript
+@export_custom(PROPERTY_HINT_INPUT_NAME, "show_builtin") var my_input: String
+```
+
+
+Só mostrar as ações do input map "criadas pelo usuário/customizado":
+```gdscript
+@export_custom(PROPERTY_HINT_INPUT_NAME, "loose_mode") var my_input: String
+```
+
+
+Mostrar ambos (built-in + customizado):
+```gdscript
+@export_custom(PROPERTY_HINT_INPUT_NAME, "show_builtin,loose_mode") var my_input: String
+```
